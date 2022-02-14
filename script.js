@@ -24,16 +24,20 @@ function clearOutput(output) {
 }
 
 function createOutput(arr, output) {
-  /*  if ((arr = needMoreArr)) {
+  if (selectType.value === 'need-more') {
     arr.forEach((element) => {
-      output.innerHTML += `<li>${arr[0].price} pris:${arr[0].product}</li>`;
+      output.innerHTML += `
+      <li>${needMoreArr[arr.indexOf(element)].product} pris:${
+        needMoreArr[arr.indexOf(element)].price
+      }</li>
+      `;
       console.log(element);
     });
-  } else { */
-  arr.forEach((element) => {
-    output.innerHTML += `<li>${element}</li>`;
-  });
-  // }
+  } else {
+    arr.forEach((element) => {
+      output.innerHTML += `<li>${element}</li>`;
+    });
+  }
 }
 
 function getUserinput() {
