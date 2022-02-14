@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Handleliste program</title>
+  </head>
+  <body>
+    <main>
+      <div class="intro-container">
+        <h1>Handleliste program</h1>
+        <p>
+          Her kan du legge varer og pris til handlelisten din og programmet vil
+          regne ut prisen på de varene du skal kjøpe.
+        </p>
+        <p>
+          Det er 3 lister en liste for det du har, en liste for det du begynner
+          å gå tom for og en liste for det du må handle. Feltet for pris er
+          deaktivert og når du velger det du må handle i rullegardinen blir
+          feltet for pris aktivert.
+        </p>
+      </div>
+
+      <div class="form-container">
+        <form action="submit" class="product-form">
+          <label for="product">Legg inn vare</label>
+          <input type="text" id="product" placeholder="Vare" />
+          <label for="price">Pris</label>
+          <input type="text" id="price" placeholder="Pris" disabled />
+          <label for="select-type">Type varer</label>
+          <select name="select-type" id="select-type" onchange="enablePrice()">
+            <option value="have-enough">Varer du har nok av</option>
+            <option value="almost-empty">Varer du begynner å tom for</option>
+            <option value="need-more">Varer du må kjøpe</option>
+          </select>
+          <button class="btn" onclick="addProduct(event)">Legg til</button>
+        </form>
+      </div>
+      <div class="user-list-container">
+        <h2>Har nok av</h2>
+        <ul class="have-enough-output"></ul>
+        <h2>Nesten tomt</h2>
+        <ul class="almost-empty-output"></ul>
+        <h2>Må handle mer</h2>
+        <ul class="need-more-output"></ul>
+      </div>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
