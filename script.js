@@ -23,21 +23,51 @@ function clearOutput(output) {
   output.innerHTML = '';
 }
 
+function deleteOutput(arr, index) {
+  arr.splice(index, 1);
+}
+
 function createOutput(arr, output) {
   if (selectType.value === 'need-more') {
     arr.forEach((element) => {
       output.innerHTML += `
-      <li>${needMoreArr[arr.indexOf(element)].product} pris:${
+        <li>${needMoreArr[arr.indexOf(element)].product} pris:${
         needMoreArr[arr.indexOf(element)].price
       }</li>
+        <button class="delete-btn">Slett</button>
       `;
-      console.log(element);
     });
   } else {
     arr.forEach((element) => {
-      output.innerHTML += `<li>${element}</li>`;
+      output.innerHTML += `
+        <li>${element}</li>
+        <button class="delete-btn">Slett</button>
+        `;
+      deleteBtn = document.querySelectorAll('.delete-btn');
+      deleteBtn.forEach((btn) => {
+        addOnclickToDeleteBtn(btn, haveEnoughArr[arr.indexOf(element)]);
+        console.log(arr.indexOf(element));
+      });
     });
   }
+}
+
+function addOnclickToDeleteBtn(btn) {
+  btn.onclick = (index) => {
+    if (selectType.value === 'have-enough') {
+      deleteOutput(haveEnoughArr, index);
+      clearOutput(haveEnoughOutput);
+      createOutput(haveEnoughArr, haveEnoughOutput);
+    } else if (selectType.value === 'almost-empty') {
+      deleteOutput(almostEmptyArr);
+      clearOutput(almostEmptyOutput);
+      createOutput(almostEmptyArr, almostEmptyOutput);
+    } else if (selectType.value === 'need-more') {
+      deleteOutput(needMoreArr);
+      clearOutput(needMoreOutput);
+      createOutput(needMoreArr, needMoreOutput);
+    }
+  };
 }
 
 function getUserinput() {
@@ -52,7 +82,6 @@ function getUserinput() {
     almostEmptyArr.push(productValue);
     clearOutput(almostEmptyOutput);
     createOutput(almostEmptyArr, almostEmptyOutput);
-    console.log(almostEmptyArr);
   } else if (selectType.value === 'need-more') {
     needMoreArr.push({
       product: productValue,
@@ -60,9 +89,6 @@ function getUserinput() {
     });
     clearOutput(needMoreOutput);
     createOutput(needMoreArr, needMoreOutput);
-    console.log(needMoreArr);
-    console.log(needMoreArr[0].price);
-    console.log(needMoreArr[0].product);
   }
 }
 
