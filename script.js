@@ -23,49 +23,66 @@ function clearOutput(output) {
   output.innerHTML = '';
 }
 
-function addOnclickToDeleteBtn() {
-  if (selectType.value === 'have-enough') {
-    clearOutput(haveEnoughOutput);
-    createOutput(haveEnoughArr, haveEnoughOutput);
-  } else if (selectType.value === 'almost-empty') {
-    deleteOutput(almostEmptyArr);
-    clearOutput(almostEmptyOutput);
-    createOutput(almostEmptyArr, almostEmptyOutput);
-  } else if (selectType.value === 'need-more') {
-    deleteOutput(needMoreArr);
-    clearOutput(needMoreOutput);
-    createOutput(needMoreArr, needMoreOutput);
-  }
-};
+// Prøv å lage en if som sletter den tilhørende arrayen
 
-function deleteOutput(arr, index) {
-  arr.splice(index, 1);
-  addOnclickToDeleteBtn();
-  console.log(index);
-  console.log(haveEnoughArr);
+function deleteOutputHaveEnough(index) {
+  haveEnoughArr.splice(index, 1);
+  clearOutput(haveEnoughOutput);
+  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
-function createOutput(arr, output) {
+function deleteOutputAlmostEmpty(index) {
+  almostEmptyArr.splice(index, 1);
+  clearOutput(almostEmptyOutput);
+  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+}
+
+function deleteOutputNeedMore(index) {
+  needMoreArr.splice(index, 1);
+  clearOutput(needMoreOutput);
+  createOutputNeedMore(needMoreArr, needMoreOutput);
+}
+
+
+function createOutputHaveEnough(arr, output) {
+  if (selectType.value === 'have-enough') {
+    arr.forEach((element, index) => {
+      output.innerHTML += `
+         <div class="product-container">
+           <li>${element} ${index}</li>
+           <button class="delete-btn" onclick="deleteOutputHaveEnough(haveEnoughArr, ${index})">Slett</button>
+         </div>
+         `;
+    });
+  }
+}
+
+function createOutputAlmostEmpty(arr, output) {
+  if (selectType.value === 'almost-empty') {
+    arr.forEach((element, index) => {
+      output.innerHTML += `
+          <div class="product-container">
+            <li>${element} ${index}</li>
+            <button class="delete-btn" onclick="deleteOutputAlmostEmpty(almostEmptyArr, ${index})">Slett</button>
+          </div>
+          `;
+    });
+  }
+}
+
+function createOutputNeedMore(arr, output) {
+  deleteBtn = document.querySelectorAll('.delete-btn');
   if (selectType.value === 'need-more') {
-    arr.forEach((element) => {
+    arr.forEach((element, index) => {
       output.innerHTML += `
         <li>${needMoreArr[arr.indexOf(element)].product} pris:${needMoreArr[arr.indexOf(element)].price
         }</li>
-        <button class="delete-btn">Slett</button>
+        <button class="delete-btn" onclick="deleteOutputNeedMore(needMoreArr, ${index})">Slett</button>
       `;
-    });
-  } else {
-    arr.forEach((element, index) => {
-      deleteBtn = document.querySelectorAll('.delete-btn');
-      output.innerHTML += `
-        <div class="product-container">
-          <li>${element} ${index}</li>
-          <button class="delete-btn" onclick="deleteOutput(haveEnoughArr, ${index})">Slett</button>
-        </div>
-        `;
     });
   }
 }
+
 
 function getUserinput() {
   productValue = product.value;
@@ -73,18 +90,18 @@ function getUserinput() {
   if (selectType.value === 'have-enough') {
     haveEnoughArr.push(productValue);
     clearOutput(haveEnoughOutput);
-    createOutput(haveEnoughArr, haveEnoughOutput);
+    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
   } else if (selectType.value === 'almost-empty') {
     almostEmptyArr.push(productValue);
     clearOutput(almostEmptyOutput);
-    createOutput(almostEmptyArr, almostEmptyOutput);
+    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
   } else if (selectType.value === 'need-more') {
     needMoreArr.push({
       product: productValue,
       price: priceValue,
     });
     clearOutput(needMoreOutput);
-    createOutput(needMoreArr, needMoreOutput);
+    createOutputNeedMore(needMoreArr, needMoreOutput);
   }
 }
 
