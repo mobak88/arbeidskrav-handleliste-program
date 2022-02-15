@@ -6,3 +6,9 @@
 .form-container {
   max-width: 400px;
 }
+
+.product-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}

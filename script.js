@@ -23,60 +23,47 @@ function clearOutput(output) {
   output.innerHTML = '';
 }
 
-function deleteOutput(arr, index) {
-  arr.splice(index, 1);
+function deleteOutput(index) {
+  haveEnoughArr.splice(index, 1);
+  addOnclickToDeleteBtn();
 }
 
 function createOutput(arr, output) {
   if (selectType.value === 'need-more') {
     arr.forEach((element) => {
       output.innerHTML += `
-        <li>${needMoreArr[arr.indexOf(element)].product} pris:${
-        needMoreArr[arr.indexOf(element)].price
-      }</li>
+        <li>${needMoreArr[arr.indexOf(element)].product} pris:${needMoreArr[arr.indexOf(element)].price
+        }</li>
         <button class="delete-btn">Slett</button>
       `;
     });
   } else {
-    /* for (let i = 0; i < arr.length; i++) {
-      output.innerHTML += `
-        <li>${haveEnoughArr[i]}</li>
-        <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
-        `;
-      console.log(haveEnoughArr);
-      console.log(i);
-    } */
     arr.forEach((element, index) => {
-      output.innerHTML += `
-        <li>${element} ${index}</li>
-        <button class="delete-btn">Slett</button>
-        `;
       deleteBtn = document.querySelectorAll('.delete-btn');
-      deleteBtn.forEach((btn) => {
-        addOnclickToDeleteBtn(btn, index);
-        console.log(index);
-      });
+      output.innerHTML += `
+        <div class="product-container">
+          <li>${element} ${index}</li>
+          <button class="delete-btn" onclick="deleteOutput(${index})">Slett</button>
+        </div>
+        `;
     });
   }
 }
 
-function addOnclickToDeleteBtn(btn, index) {
-  btn.onclick = () => {
-    if (selectType.value === 'have-enough') {
-      deleteOutput(haveEnoughArr, index);
-      clearOutput(haveEnoughOutput);
-      createOutput(haveEnoughArr, haveEnoughOutput);
-    } else if (selectType.value === 'almost-empty') {
-      deleteOutput(almostEmptyArr);
-      clearOutput(almostEmptyOutput);
-      createOutput(almostEmptyArr, almostEmptyOutput);
-    } else if (selectType.value === 'need-more') {
-      deleteOutput(needMoreArr);
-      clearOutput(needMoreOutput);
-      createOutput(needMoreArr, needMoreOutput);
-    }
-  };
-}
+function addOnclickToDeleteBtn() {
+  if (selectType.value === 'have-enough') {
+    clearOutput(haveEnoughOutput);
+    createOutput(haveEnoughArr, haveEnoughOutput);
+  } else if (selectType.value === 'almost-empty') {
+    deleteOutput(almostEmptyArr);
+    clearOutput(almostEmptyOutput);
+    createOutput(almostEmptyArr, almostEmptyOutput);
+  } else if (selectType.value === 'need-more') {
+    deleteOutput(needMoreArr);
+    clearOutput(needMoreOutput);
+    createOutput(needMoreArr, needMoreOutput);
+  }
+};
 
 function getUserinput() {
   productValue = product.value;
@@ -103,3 +90,12 @@ function addProduct(e) {
   e.preventDefault();
   getUserinput();
 }
+
+/* for (let i = 0; i < arr.length; i++) {
+      output.innerHTML += `
+        <li>${haveEnoughArr[i]}</li>
+        <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
+        `;
+      console.log(haveEnoughArr);
+      console.log(i);
+    } */
