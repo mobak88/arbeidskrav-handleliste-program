@@ -23,9 +23,26 @@ function clearOutput(output) {
   output.innerHTML = '';
 }
 
-function deleteOutput(index) {
-  haveEnoughArr.splice(index, 1);
+function addOnclickToDeleteBtn() {
+  if (selectType.value === 'have-enough') {
+    clearOutput(haveEnoughOutput);
+    createOutput(haveEnoughArr, haveEnoughOutput);
+  } else if (selectType.value === 'almost-empty') {
+    deleteOutput(almostEmptyArr);
+    clearOutput(almostEmptyOutput);
+    createOutput(almostEmptyArr, almostEmptyOutput);
+  } else if (selectType.value === 'need-more') {
+    deleteOutput(needMoreArr);
+    clearOutput(needMoreOutput);
+    createOutput(needMoreArr, needMoreOutput);
+  }
+};
+
+function deleteOutput(arr, index) {
+  arr.splice(index, 1);
   addOnclickToDeleteBtn();
+  console.log(index);
+  console.log(haveEnoughArr);
 }
 
 function createOutput(arr, output) {
@@ -43,27 +60,12 @@ function createOutput(arr, output) {
       output.innerHTML += `
         <div class="product-container">
           <li>${element} ${index}</li>
-          <button class="delete-btn" onclick="deleteOutput(${index})">Slett</button>
+          <button class="delete-btn" onclick="deleteOutput(haveEnoughArr, ${index})">Slett</button>
         </div>
         `;
     });
   }
 }
-
-function addOnclickToDeleteBtn() {
-  if (selectType.value === 'have-enough') {
-    clearOutput(haveEnoughOutput);
-    createOutput(haveEnoughArr, haveEnoughOutput);
-  } else if (selectType.value === 'almost-empty') {
-    deleteOutput(almostEmptyArr);
-    clearOutput(almostEmptyOutput);
-    createOutput(almostEmptyArr, almostEmptyOutput);
-  } else if (selectType.value === 'need-more') {
-    deleteOutput(needMoreArr);
-    clearOutput(needMoreOutput);
-    createOutput(needMoreArr, needMoreOutput);
-  }
-};
 
 function getUserinput() {
   productValue = product.value;
