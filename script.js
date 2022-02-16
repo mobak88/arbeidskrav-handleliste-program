@@ -29,18 +29,30 @@ function deleteOutputHaveEnough(index) {
   haveEnoughArr.splice(index, 1);
   clearOutput(haveEnoughOutput);
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+  clearOutput(almostEmptyOutput);
+  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  clearOutput(needMoreOutput);
+  createOutputNeedMore(needMoreArr, needMoreOutput);
 }
 
 function deleteOutputAlmostEmpty(index) {
   almostEmptyArr.splice(index, 1);
   clearOutput(almostEmptyOutput);
   createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  clearOutput(needMoreOutput);
+  createOutputNeedMore(needMoreArr, needMoreOutput);
+  clearOutput(haveEnoughOutput);
+  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
 function deleteOutputNeedMore(index) {
   needMoreArr.splice(index, 1);
   clearOutput(needMoreOutput);
   createOutputNeedMore(needMoreArr, needMoreOutput);
+  clearOutput(almostEmptyOutput);
+  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  clearOutput(haveEnoughOutput);
+  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
 
