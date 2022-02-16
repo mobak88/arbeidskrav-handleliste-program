@@ -10,6 +10,10 @@ const haveEnoughArr = [];
 const almostEmptyArr = [];
 const needMoreArr = [];
 
+console.log(haveEnoughOutput);
+console.log(almostEmptyOutput);
+console.log(needMoreOutput);
+
 // alert('Velkommen');
 function enablePrice() {
   if (selectType.value === 'need-more') {
@@ -19,39 +23,35 @@ function enablePrice() {
   }
 }
 
-function clearOutput(output) {
-  output.innerHTML = '';
+function clearOutput(outputOne, outputTwo, outputThree) {
+  outputOne.innerHTML = null;
+  outputTwo.innerHTML = null;
+  outputThree.innerHTML = null;
 }
 
 // Prøv å lage en if som sletter den tilhørende arrayen
 
 function deleteOutputHaveEnough(index) {
   haveEnoughArr.splice(index, 1);
-  clearOutput(haveEnoughOutput);
+  clearOutput(haveEnoughOutput, almostEmptyOutput, needMoreOutput);
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
-  clearOutput(almostEmptyOutput);
   createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  clearOutput(needMoreOutput);
   createOutputNeedMore(needMoreArr, needMoreOutput);
 }
 
 function deleteOutputAlmostEmpty(index) {
   almostEmptyArr.splice(index, 1);
-  clearOutput(almostEmptyOutput);
+  clearOutput(haveEnoughOutput, almostEmptyOutput, needMoreOutput);
   createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  clearOutput(needMoreOutput);
   createOutputNeedMore(needMoreArr, needMoreOutput);
-  clearOutput(haveEnoughOutput);
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
 function deleteOutputNeedMore(index) {
   needMoreArr.splice(index, 1);
-  clearOutput(needMoreOutput);
+  clearOutput(haveEnoughOutput, almostEmptyOutput, needMoreOutput);
   createOutputNeedMore(needMoreArr, needMoreOutput);
-  clearOutput(almostEmptyOutput);
   createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  clearOutput(haveEnoughOutput);
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
