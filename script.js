@@ -9,6 +9,7 @@ const almostEmptyOutput = document.querySelector('.almost-empty-output');
 const needMoreOutput = document.querySelector('.need-more-output');
 const priceContainer = document.querySelector('.price-container');
 const quantityContainer = document.querySelector('.quantity-container');
+const shoppingListTotal = document.querySelector('.total-shopping-list');
 
 const haveEnoughArr = [];
 const almostEmptyArr = [];
@@ -17,17 +18,31 @@ let calculatedPricePerItem = [];
 
 // alert('Velkommen');
 
-function toggleClass(element) {
+const toggleClass = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
   } else {
     element.classList.add('hidden');
   }
-}
+};
 
-function clearOutput(output) {
+const clearOutput = (output) => {
   output.innerHTML = '';
-}
+};
+
+const uppdateShoppingListTotal = (price) => {
+  shoppingListTotal.innerHTML = `
+    <li>${price},-</li>
+    `;
+};
+
+const caclulateTotalAllItems = (arr) => {
+  const reducedPrice = arr.reduce((prevVal, curVal) => {
+    return prevVal += curVal;
+  }, 0);
+  console.log(reducedPrice);
+  uppdateShoppingListTotal(reducedPrice);
+};
 
 function deleteOutputHaveEnough(index) {
   haveEnoughArr.splice(index, 1);
@@ -45,6 +60,8 @@ function deleteOutputNeedMore(index) {
   needMoreArr.splice(index, 1);
   clearOutput(needMoreOutput);
   createOutputNeedMore(needMoreArr, needMoreOutput);
+  calculatetotalPerItem();
+  caclulateTotalAllItems(calculatedPricePerItem);
 }
 
 if (selectType.value === 'have-enough') {
@@ -98,13 +115,6 @@ function createOutputNeedMore(arr, output) {
       `;
   });
 }
-
-const caclulateTotalAllItems = (arr) => {
-  const reducedPrice = arr.reduce((prevVal, curVal) => {
-    return prevVal += curVal;
-  }, 0);
-  console.log(reducedPrice);
-};
 
 function getUserinput() {
   productValue = product.value;
