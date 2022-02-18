@@ -15,12 +15,6 @@
           Her kan du legge varer og pris til handlelisten din og programmet vil
           regne ut prisen på de varene du skal kjøpe.
         </p>
-        <p>
-          Det er 3 lister en liste for det du har, en liste for det du begynner
-          å gå tom for og en liste for det du må handle. Feltet for pris og
-          antall er deaktivert og når du velger det du må handle i rullegardinen
-          blir feltene for pris og antall aktivert.
-        </p>
       </div>
 
       <div class="form-container">
@@ -54,12 +48,20 @@
       </div>
 
       <div class="user-list-container">
-        <h2>Har nok av</h2>
-        <ul class="have-enough-output"></ul>
-        <h2>Nesten tomt</h2>
-        <ul class="almost-empty-output"></ul>
-        <h2>Må handle mer</h2>
-        <ul class="need-more-output"></ul>
+        <div class="shopping-list-card">
+          <h2>Har nok av</h2>
+          <ul class="have-enough-output"></ul>
+        </div>
+        <div class="shopping-list-card">
+          <h2>Nesten tomt</h2>
+          <ul class="almost-empty-output"></ul>
+        </div>
+        <div class="shopping-list-card">
+          <h2>Må handle mer</h2>
+          <ul class="need-more-output"></ul>
+        </div>
+      </div>
+      <div class="total-price-container">
         <h2>Totalpris Handleliste</h2>
         <ul class="total-shopping-list">
           <li>0,-</li>

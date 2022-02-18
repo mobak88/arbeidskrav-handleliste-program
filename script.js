@@ -16,8 +16,6 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
-// alert('Velkommen');
-
 const toggleClass = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
@@ -48,7 +46,7 @@ function createOutputHaveEnough(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li>Produkt nummer ${index + 1}: ${element}</li>
+        <li>${element}</li>
         <button class="delete-btn" onclick="deleteOutputHaveEnough(${index})">Slett</button>
       </div>
       `;
@@ -56,16 +54,24 @@ function createOutputHaveEnough(arr, output) {
 }
 
 function deleteOutputHaveEnough(index) {
-  haveEnoughArr.splice(index, 1);
-  clearOutput(haveEnoughOutput);
-  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+  const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
+  if (userAnswer.toLowerCase() === 'nei') {
+    clearOutput(haveEnoughOutput);
+    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+  } else if (userAnswer.toLowerCase() === 'ja') {
+    haveEnoughArr.splice(index, 1);
+    clearOutput(haveEnoughOutput);
+    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
+    alert('Du må svare ja eller nei');
+  }
 }
 
 function createOutputAlmostEmpty(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li>Produkt nummer ${index + 1}:${element} </li>
+        <li>${element}</li>
         <button class="delete-btn" onclick="deleteOutputAlmostEmpty(${index})">Slett</button>
         </div>
         `;
@@ -73,9 +79,17 @@ function createOutputAlmostEmpty(arr, output) {
 }
 
 function deleteOutputAlmostEmpty(index) {
-  almostEmptyArr.splice(index, 1);
-  clearOutput(almostEmptyOutput);
-  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
+  if (userAnswer.toLowerCase() === 'nei') {
+    clearOutput(almostEmptyOutput);
+    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  } else if (userAnswer.toLowerCase() === 'ja') {
+    almostEmptyArr.splice(index, 1);
+    clearOutput(almostEmptyOutput);
+    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
+    alert('Du må svare ja eller nei');
+  }
 }
 
 function createOutputNeedMore(arr, output) {
@@ -83,7 +97,7 @@ function createOutputNeedMore(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li>Produkt nummer ${index + 1}: ${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
+        <li>${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
         <button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button>
       </div>
       `;
@@ -91,11 +105,19 @@ function createOutputNeedMore(arr, output) {
 }
 
 function deleteOutputNeedMore(index) {
-  needMoreArr.splice(index, 1);
-  clearOutput(needMoreOutput);
-  createOutputNeedMore(needMoreArr, needMoreOutput);
-  calculatetotalPerItem();
-  caclulateTotalAllItems(calculatedPricePerItem);
+  const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
+  if (userAnswer.toLowerCase() === 'nei') {
+    clearOutput(needMoreOutput);
+    createOutputNeedMore(needMoreArr, needMoreOutput);
+  } else if (userAnswer.toLowerCase() === 'ja') {
+    needMoreArr.splice(index, 1);
+    clearOutput(needMoreOutput);
+    createOutputNeedMore(needMoreArr, needMoreOutput);
+    calculatetotalPerItem();
+    caclulateTotalAllItems(calculatedPricePerItem);
+  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
+    alert('Du må svare ja eller nei');
+  }
 }
 
 if (selectType.value === 'have-enough') {
@@ -109,7 +131,6 @@ if (selectType.value === 'have-enough') {
 function calculatetotalPerItem() {
   calculatedPricePerItem = [];
   needMoreArr.forEach((item) => {
-    // Its pushing to the array one time for each item but i could not figure out how to push once and access the index without a loop, so i set the function to clear the array as a hack.
     calculatedPricePerItem.push(item.price * item.quantity);
   });
 }

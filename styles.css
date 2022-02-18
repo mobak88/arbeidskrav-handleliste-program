@@ -1,3 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main,
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+li {
+  list-style: none;
+}
+
 .product-form {
   display: flex;
   flex-direction: column;
@@ -20,6 +38,27 @@
   /* transition: ease-out 2s; */
 }
 
+.user-list-container {
+  display: flex;
+  gap: 40px;
+}
+
 .hidden {
   display: none;
+}
+
+.shopping-list-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 30px 80px;
+}
+
+.total-price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
