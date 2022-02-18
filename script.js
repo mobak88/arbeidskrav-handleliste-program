@@ -13,7 +13,7 @@ const quantityContainer = document.querySelector('.quantity-container');
 const haveEnoughArr = [];
 const almostEmptyArr = [];
 const needMoreArr = [];
-const calculatedPricePerItem = [];
+let calculatedPricePerItem = [];
 
 // alert('Velkommen');
 
@@ -79,11 +79,11 @@ function createOutputAlmostEmpty(arr, output) {
 }
 
 function calculatetotalPerItem() {
+  calculatedPricePerItem = [];
   needMoreArr.forEach((item) => {
     totalPricePerItem = item.price * item.quantity;
     calculatedPricePerItem.push(totalPricePerItem);
     console.log(calculatedPricePerItem);
-    console.log(totalPricePerItem);
   });
 }
 
