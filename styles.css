@@ -1,6 +1,7 @@
 .product-form {
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
 .form-container {
@@ -11,4 +12,14 @@
   display: flex;
   gap: 12px;
   margin-bottom: 12px;
+}
+
+.form-elements-container {
+  display: flex;
+  flex-direction: column;
+  /* transition: ease-out 2s; */
+}
+
+.hidden {
+  display: none;
 }

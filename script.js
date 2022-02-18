@@ -1,21 +1,27 @@
 const price = document.getElementById('price');
+const quantity = document.getElementById('quantity');
 const selectType = document.getElementById('select-type');
+const product = document.getElementById('product');
+
 const btn = document.querySelector('.btn');
 const haveEnoughOutput = document.querySelector('.have-enough-output');
 const almostEmptyOutput = document.querySelector('.almost-empty-output');
 const needMoreOutput = document.querySelector('.need-more-output');
-const product = document.getElementById('product');
+const priceContainer = document.querySelector('.price-container');
+const quantityContainer = document.querySelector('.quantity-container');
 
 const haveEnoughArr = [];
 const almostEmptyArr = [];
 const needMoreArr = [];
+const calculatedPricePerItem = [];
 
 // alert('Velkommen');
-function enablePrice() {
+
+function toggleClass(element) {
   if (selectType.value === 'need-more') {
-    price.disabled = false;
+    element.classList.remove('hidden');
   } else {
-    price.disabled = true;
+    element.classList.add('hidden');
   }
 }
 
@@ -53,22 +59,31 @@ if (selectType.value === 'have-enough') {
 function createOutputHaveEnough(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
-         <div class="product-container">
-           <li>${element} ${index}</li>
-           <button class="delete-btn" onclick="deleteOutputHaveEnough(haveEnoughArr, ${index})">Slett</button>
-         </div>
-         `;
+      <div class="product-container">
+        <li>Produkt nummer ${index + 1}: ${element}</li>
+        <button class="delete-btn" onclick="deleteOutputHaveEnough(haveEnoughArr, ${index})">Slett</button>
+      </div>
+      `;
   });
 }
 
 function createOutputAlmostEmpty(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
-          <div class="product-container">
-            <li>${element} ${index}</li>
-            <button class="delete-btn" onclick="deleteOutputAlmostEmpty(almostEmptyArr, ${index})">Slett</button>
-          </div>
-          `;
+      <div class="product-container">
+        <li>Produkt nummer ${index + 1}:${element} </li>
+        <button class="delete-btn" onclick="deleteOutputAlmostEmpty(almostEmptyArr, ${index})">Slett</button>
+        </div>
+        `;
+  });
+}
+
+function calculatetotalPerItem() {
+  needMoreArr.forEach((item) => {
+    totalPricePerItem = item.price * item.quantity;
+    calculatedPricePerItem.push(totalPricePerItem);
+    console.log(calculatedPricePerItem);
+    console.log(totalPricePerItem);
   });
 }
 
@@ -76,17 +91,18 @@ function createOutputNeedMore(arr, output) {
   deleteBtn = document.querySelectorAll('.delete-btn');
   arr.forEach((element, index) => {
     output.innerHTML += `
-        <li>${needMoreArr[arr.indexOf(element)].product} pris:${needMoreArr[arr.indexOf(element)].price
-      }</li>
+      <div class="product-container">
+        <li>Produkt nummer ${index + 1}: ${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
         <button class="delete-btn" onclick="deleteOutputNeedMore(needMoreArr, ${index})">Slett</button>
+      </div>
       `;
   });
 }
 
-
 function getUserinput() {
   productValue = product.value;
   priceValue = price.value;
+  quantityValue = quantity.value;
   if (selectType.value === 'have-enough') {
     haveEnoughArr.push(productValue);
     clearOutput(haveEnoughOutput);
@@ -99,9 +115,12 @@ function getUserinput() {
     needMoreArr.push({
       product: productValue,
       price: priceValue,
+      quantity: quantityValue,
     });
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
+    calculatetotalPerItem();
+    console.log(needMoreArr);
   }
 }
 
