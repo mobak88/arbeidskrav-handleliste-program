@@ -23,60 +23,66 @@ function clearOutput(output) {
   output.innerHTML = '';
 }
 
-function deleteOutput(arr, index) {
-  arr.splice(index, 1);
+function deleteOutputHaveEnough(index) {
+  haveEnoughArr.splice(index, 1);
+  clearOutput(haveEnoughOutput);
+  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
-function createOutput(arr, output) {
-  if (selectType.value === 'need-more') {
-    arr.forEach((element) => {
-      output.innerHTML += `
-        <li>${needMoreArr[arr.indexOf(element)].product} pris:${
-        needMoreArr[arr.indexOf(element)].price
+function deleteOutputAlmostEmpty(index) {
+  almostEmptyArr.splice(index, 1);
+  clearOutput(almostEmptyOutput);
+  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+}
+
+function deleteOutputNeedMore(index) {
+  needMoreArr.splice(index, 1);
+  clearOutput(needMoreOutput);
+  createOutputNeedMore(needMoreArr, needMoreOutput);
+}
+
+if (selectType.value === 'have-enough') {
+  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+} else if (selectType.value === 'almost-empty') {
+  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+} else if (selectType.value === 'need-more') {
+  createOutputNeedMore(needMoreArr, needMoreOutput);
+}
+
+
+function createOutputHaveEnough(arr, output) {
+  arr.forEach((element, index) => {
+    output.innerHTML += `
+         <div class="product-container">
+           <li>${element} ${index}</li>
+           <button class="delete-btn" onclick="deleteOutputHaveEnough(haveEnoughArr, ${index})">Slett</button>
+         </div>
+         `;
+  });
+}
+
+function createOutputAlmostEmpty(arr, output) {
+  arr.forEach((element, index) => {
+    output.innerHTML += `
+          <div class="product-container">
+            <li>${element} ${index}</li>
+            <button class="delete-btn" onclick="deleteOutputAlmostEmpty(almostEmptyArr, ${index})">Slett</button>
+          </div>
+          `;
+  });
+}
+
+function createOutputNeedMore(arr, output) {
+  deleteBtn = document.querySelectorAll('.delete-btn');
+  arr.forEach((element, index) => {
+    output.innerHTML += `
+        <li>${needMoreArr[arr.indexOf(element)].product} pris:${needMoreArr[arr.indexOf(element)].price
       }</li>
-        <button class="delete-btn">Slett</button>
+        <button class="delete-btn" onclick="deleteOutputNeedMore(needMoreArr, ${index})">Slett</button>
       `;
-    });
-  } else {
-    /* for (let i = 0; i < arr.length; i++) {
-      output.innerHTML += `
-        <li>${haveEnoughArr[i]}</li>
-        <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
-        `;
-      console.log(haveEnoughArr);
-      console.log(i);
-    } */
-    arr.forEach((element, index) => {
-      output.innerHTML += `
-        <li>${element} ${index}</li>
-        <button class="delete-btn">Slett</button>
-        `;
-      deleteBtn = document.querySelectorAll('.delete-btn');
-      deleteBtn.forEach((btn) => {
-        addOnclickToDeleteBtn(btn, index);
-        console.log(index);
-      });
-    });
-  }
+  });
 }
 
-function addOnclickToDeleteBtn(btn, index) {
-  btn.onclick = () => {
-    if (selectType.value === 'have-enough') {
-      deleteOutput(haveEnoughArr, index);
-      clearOutput(haveEnoughOutput);
-      createOutput(haveEnoughArr, haveEnoughOutput);
-    } else if (selectType.value === 'almost-empty') {
-      deleteOutput(almostEmptyArr);
-      clearOutput(almostEmptyOutput);
-      createOutput(almostEmptyArr, almostEmptyOutput);
-    } else if (selectType.value === 'need-more') {
-      deleteOutput(needMoreArr);
-      clearOutput(needMoreOutput);
-      createOutput(needMoreArr, needMoreOutput);
-    }
-  };
-}
 
 function getUserinput() {
   productValue = product.value;
@@ -84,18 +90,18 @@ function getUserinput() {
   if (selectType.value === 'have-enough') {
     haveEnoughArr.push(productValue);
     clearOutput(haveEnoughOutput);
-    createOutput(haveEnoughArr, haveEnoughOutput);
+    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
   } else if (selectType.value === 'almost-empty') {
     almostEmptyArr.push(productValue);
     clearOutput(almostEmptyOutput);
-    createOutput(almostEmptyArr, almostEmptyOutput);
+    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
   } else if (selectType.value === 'need-more') {
     needMoreArr.push({
       product: productValue,
       price: priceValue,
     });
     clearOutput(needMoreOutput);
-    createOutput(needMoreArr, needMoreOutput);
+    createOutputNeedMore(needMoreArr, needMoreOutput);
   }
 }
 
@@ -103,3 +109,12 @@ function addProduct(e) {
   e.preventDefault();
   getUserinput();
 }
+
+/* for (let i = 0; i < arr.length; i++) {
+      output.innerHTML += `
+        <li>${haveEnoughArr[i]}</li>
+        <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
+        `;
+      console.log(haveEnoughArr);
+      console.log(i);
+    } */
