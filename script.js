@@ -10,10 +10,6 @@ const haveEnoughArr = [];
 const almostEmptyArr = [];
 const needMoreArr = [];
 
-console.log(haveEnoughOutput);
-console.log(almostEmptyOutput);
-console.log(needMoreOutput);
-
 // alert('Velkommen');
 function enablePrice() {
   if (selectType.value === 'need-more') {
@@ -23,76 +19,68 @@ function enablePrice() {
   }
 }
 
-function clearOutput(outputOne, outputTwo, outputThree) {
-  outputOne.innerHTML = null;
-  outputTwo.innerHTML = null;
-  outputThree.innerHTML = null;
+function clearOutput(output) {
+  output.innerHTML = '';
 }
-
-// Prøv å lage en if som sletter den tilhørende arrayen
 
 function deleteOutputHaveEnough(index) {
   haveEnoughArr.splice(index, 1);
-  clearOutput(haveEnoughOutput, almostEmptyOutput, needMoreOutput);
+  clearOutput(haveEnoughOutput);
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
-  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  createOutputNeedMore(needMoreArr, needMoreOutput);
 }
 
 function deleteOutputAlmostEmpty(index) {
   almostEmptyArr.splice(index, 1);
-  clearOutput(haveEnoughOutput, almostEmptyOutput, needMoreOutput);
+  clearOutput(almostEmptyOutput);
   createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  createOutputNeedMore(needMoreArr, needMoreOutput);
-  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
 function deleteOutputNeedMore(index) {
   needMoreArr.splice(index, 1);
-  clearOutput(haveEnoughOutput, almostEmptyOutput, needMoreOutput);
+  clearOutput(needMoreOutput);
   createOutputNeedMore(needMoreArr, needMoreOutput);
-  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+}
+
+if (selectType.value === 'have-enough') {
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+} else if (selectType.value === 'almost-empty') {
+  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+} else if (selectType.value === 'need-more') {
+  createOutputNeedMore(needMoreArr, needMoreOutput);
 }
 
 
 function createOutputHaveEnough(arr, output) {
-  if (selectType.value === 'have-enough') {
-    arr.forEach((element, index) => {
-      output.innerHTML += `
+  arr.forEach((element, index) => {
+    output.innerHTML += `
          <div class="product-container">
            <li>${element} ${index}</li>
            <button class="delete-btn" onclick="deleteOutputHaveEnough(haveEnoughArr, ${index})">Slett</button>
          </div>
          `;
-    });
-  }
+  });
 }
 
 function createOutputAlmostEmpty(arr, output) {
-  if (selectType.value === 'almost-empty') {
-    arr.forEach((element, index) => {
-      output.innerHTML += `
+  arr.forEach((element, index) => {
+    output.innerHTML += `
           <div class="product-container">
             <li>${element} ${index}</li>
             <button class="delete-btn" onclick="deleteOutputAlmostEmpty(almostEmptyArr, ${index})">Slett</button>
           </div>
           `;
-    });
-  }
+  });
 }
 
 function createOutputNeedMore(arr, output) {
   deleteBtn = document.querySelectorAll('.delete-btn');
-  if (selectType.value === 'need-more') {
-    arr.forEach((element, index) => {
-      output.innerHTML += `
+  arr.forEach((element, index) => {
+    output.innerHTML += `
         <li>${needMoreArr[arr.indexOf(element)].product} pris:${needMoreArr[arr.indexOf(element)].price
-        }</li>
+      }</li>
         <button class="delete-btn" onclick="deleteOutputNeedMore(needMoreArr, ${index})">Slett</button>
       `;
-    });
-  }
+  });
 }
 
 
