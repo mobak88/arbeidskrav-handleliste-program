@@ -44,16 +44,50 @@ const caclulateTotalAllItems = (arr) => {
   uppdateShoppingListTotal(reducedPrice);
 };
 
+function createOutputHaveEnough(arr, output) {
+  arr.forEach((element, index) => {
+    output.innerHTML += `
+      <div class="product-container">
+        <li>Produkt nummer ${index + 1}: ${element}</li>
+        <button class="delete-btn" onclick="deleteOutputHaveEnough(${index})">Slett</button>
+      </div>
+      `;
+  });
+}
+
 function deleteOutputHaveEnough(index) {
   haveEnoughArr.splice(index, 1);
   clearOutput(haveEnoughOutput);
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 }
 
+function createOutputAlmostEmpty(arr, output) {
+  arr.forEach((element, index) => {
+    output.innerHTML += `
+      <div class="product-container">
+        <li>Produkt nummer ${index + 1}:${element} </li>
+        <button class="delete-btn" onclick="deleteOutputAlmostEmpty(${index})">Slett</button>
+        </div>
+        `;
+  });
+}
+
 function deleteOutputAlmostEmpty(index) {
   almostEmptyArr.splice(index, 1);
   clearOutput(almostEmptyOutput);
   createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+}
+
+function createOutputNeedMore(arr, output) {
+  deleteBtn = document.querySelectorAll('.delete-btn');
+  arr.forEach((element, index) => {
+    output.innerHTML += `
+      <div class="product-container">
+        <li>Produkt nummer ${index + 1}: ${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
+        <button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button>
+      </div>
+      `;
+  });
 }
 
 function deleteOutputNeedMore(index) {
@@ -72,47 +106,11 @@ if (selectType.value === 'have-enough') {
   createOutputNeedMore(needMoreArr, needMoreOutput);
 }
 
-
-function createOutputHaveEnough(arr, output) {
-  arr.forEach((element, index) => {
-    output.innerHTML += `
-      <div class="product-container">
-        <li>Produkt nummer ${index + 1}: ${element}</li>
-        <button class="delete-btn" onclick="deleteOutputHaveEnough(haveEnoughArr, ${index})">Slett</button>
-      </div>
-      `;
-  });
-}
-
-function createOutputAlmostEmpty(arr, output) {
-  arr.forEach((element, index) => {
-    output.innerHTML += `
-      <div class="product-container">
-        <li>Produkt nummer ${index + 1}:${element} </li>
-        <button class="delete-btn" onclick="deleteOutputAlmostEmpty(almostEmptyArr, ${index})">Slett</button>
-        </div>
-        `;
-  });
-}
-
 function calculatetotalPerItem() {
   calculatedPricePerItem = [];
   needMoreArr.forEach((item) => {
     // Its pushing to the array one time for each item but i could not figure out how to push once and access the index without a loop, so i set the function to clear the array as a hack.
     calculatedPricePerItem.push(item.price * item.quantity);
-    console.log(calculatedPricePerItem);
-  });
-}
-
-function createOutputNeedMore(arr, output) {
-  deleteBtn = document.querySelectorAll('.delete-btn');
-  arr.forEach((element, index) => {
-    output.innerHTML += `
-      <div class="product-container">
-        <li>Produkt nummer ${index + 1}: ${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
-        <button class="delete-btn" onclick="deleteOutputNeedMore(needMoreArr, ${index})">Slett</button>
-      </div>
-      `;
   });
 }
 
@@ -151,6 +149,4 @@ function addProduct(e) {
         <li>${haveEnoughArr[i]}</li>
         <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
         `;
-      console.log(haveEnoughArr);
-      console.log(i);
     } */
