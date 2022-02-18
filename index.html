@@ -17,24 +17,38 @@
         </p>
         <p>
           Det er 3 lister en liste for det du har, en liste for det du begynner
-          å gå tom for og en liste for det du må handle. Feltet for pris er
-          deaktivert og når du velger det du må handle i rullegardinen blir
-          feltet for pris aktivert.
+          å gå tom for og en liste for det du må handle. Feltet for pris og
+          antall er deaktivert og når du velger det du må handle i rullegardinen
+          blir feltene for pris og antall aktivert.
         </p>
       </div>
 
       <div class="form-container">
         <form action="submit" class="product-form">
-          <label for="product">Legg inn vare</label>
-          <input type="text" id="product" placeholder="Vare" />
-          <label for="price">Pris</label>
-          <input type="text" id="price" placeholder="Pris" disabled />
-          <label for="select-type">Type varer</label>
-          <select name="select-type" id="select-type" onchange="enablePrice()">
-            <option value="have-enough">Varer du har nok av</option>
-            <option value="almost-empty">Varer du begynner å tom for</option>
-            <option value="need-more">Varer du må kjøpe</option>
-          </select>
+          <div class="form-elements-container">
+            <label for="product">Legg inn vare</label>
+            <input type="text" id="product" placeholder="Vare" />
+          </div>
+          <div class="price-container form-elements-container hidden">
+            <label for="price">Pris</label>
+            <input type="text" id="price" placeholder="Pris" />
+          </div>
+          <div class="quantity-container form-elements-container hidden">
+            <label for="quantity">Antall</label>
+            <input type="text" id="quantity" placeholder="Antall" />
+          </div>
+          <div class="form-elements-container">
+            <label for="select-type">Type varer</label>
+            <select
+              name="select-type"
+              id="select-type"
+              onchange="toggleClass(priceContainer), toggleClass(quantityContainer)"
+            >
+              <option value="have-enough">Varer du har nok av</option>
+              <option value="almost-empty">Varer du begynner å tom for</option>
+              <option value="need-more">Varer du må kjøpe</option>
+            </select>
+          </div>
           <button class="btn" onclick="addProduct(event)">Legg til</button>
         </form>
       </div>
