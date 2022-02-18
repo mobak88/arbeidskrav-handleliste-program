@@ -81,8 +81,8 @@ function createOutputAlmostEmpty(arr, output) {
 function calculatetotalPerItem() {
   calculatedPricePerItem = [];
   needMoreArr.forEach((item) => {
-    totalPricePerItem = item.price * item.quantity;
-    calculatedPricePerItem.push(totalPricePerItem);
+    // Its pushing to the array one time for each item but i could not figure out how to push once and access the index without a loop, so i set the function to clear the array as a hack.
+    calculatedPricePerItem.push(item.price * item.quantity);
     console.log(calculatedPricePerItem);
   });
 }
@@ -98,6 +98,13 @@ function createOutputNeedMore(arr, output) {
       `;
   });
 }
+
+const caclulateTotalAllItems = (arr) => {
+  const reducedPrice = arr.reduce((prevVal, curVal) => {
+    return prevVal += curVal;
+  }, 0);
+  console.log(reducedPrice);
+};
 
 function getUserinput() {
   productValue = product.value;
@@ -120,7 +127,7 @@ function getUserinput() {
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
     calculatetotalPerItem();
-    console.log(needMoreArr);
+    caclulateTotalAllItems(calculatedPricePerItem);
   }
 }
 
