@@ -16,6 +16,9 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
+// clear input field when add button triggers
+// Add logic to the inputs for numbers and empty field
+
 const toggleClass = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
@@ -46,7 +49,7 @@ function createOutputHaveEnough(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li>${element}</li>
+        <li class="product-list">${element}</li>
         <button class="delete-btn" onclick="deleteOutputHaveEnough(${index})">Slett</button>
       </div>
       `;
@@ -71,7 +74,7 @@ function createOutputAlmostEmpty(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li>${element}</li>
+        <li class="product-list">${element}</li>
         <button class="delete-btn" onclick="deleteOutputAlmostEmpty(${index})">Slett</button>
         </div>
         `;
@@ -97,7 +100,7 @@ function createOutputNeedMore(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li>${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
+        <li class="product-list">${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
         <button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button>
       </div>
       `;
