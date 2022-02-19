@@ -90,14 +90,10 @@ select,
   margin-bottom: 100px;
 }
 
-.form-container {
-}
-
 .form-elements-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* transition: ease-out 2s; */
 }
 
 .user-list-container {

@@ -31,6 +31,10 @@ const clearOutput = (output) => {
   output.innerHTML = '';
 };
 
+const clearInputField = (fieldName) => {
+  fieldName.value = '';
+};
+
 const uppdateShoppingListTotal = (price) => {
   shoppingListTotal.innerHTML = `
     <li>${price},-</li>
@@ -146,10 +150,12 @@ function getUserinput() {
     haveEnoughArr.push(productValue);
     clearOutput(haveEnoughOutput);
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+    clearInputField(product);
   } else if (selectType.value === 'almost-empty') {
     almostEmptyArr.push(productValue);
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+    clearInputField(product);
   } else if (selectType.value === 'need-more') {
     needMoreArr.push({
       product: productValue,
@@ -160,6 +166,9 @@ function getUserinput() {
     createOutputNeedMore(needMoreArr, needMoreOutput);
     calculatetotalPerItem();
     caclulateTotalAllItems(calculatedPricePerItem);
+    clearInputField(product);
+    clearInputField(price);
+    clearInputField(quantity);
   }
 }
 
