@@ -195,7 +195,7 @@ function getUserinput() {
       errMsgQuantity.classList.add('error-msg-hidden');
     }
 
-    if (productValue !== '' && priceValue !== '' && typeof priceValue === 'number' && quantityValue !== '' && typeof quantityValue === 'number') {
+    if (productValue !== '' && priceValue !== '' && quantityValue !== '' && typeof priceValue === 'number' && typeof quantityValue === 'number' && typeof productValue === 'string') {
       needMoreArr.push({
         product: productValue,
         price: priceValue,
