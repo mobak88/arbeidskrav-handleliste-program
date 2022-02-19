@@ -142,3 +142,16 @@ select,
   border: none;
   cursor: pointer;
 }
+
+.error-border-input {
+  border: 2px solid rgb(216, 0, 0);
+}
+
+.error-msg {
+  color: rgb(216, 0, 0);
+  font-size: 12px;
+}
+
+.error-msg-hidden {
+  display: none;
+}

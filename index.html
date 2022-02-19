@@ -22,14 +22,23 @@
           <div class="form-elements-container">
             <label for="product">Legg inn vare</label>
             <input type="text" id="product" placeholder="Vare" />
+            <p class="error-msg error-msg-product error-msg-hidden">
+              Du må legge inn en vare
+            </p>
           </div>
           <div class="price-container form-elements-container hidden">
             <label for="price">Pris</label>
             <input type="text" id="price" placeholder="Pris" />
+            <p class="error-msg error-msg-price error-msg-hidden">
+              Feltet for pris kan ikke være tomt og må være ett tall
+            </p>
           </div>
           <div class="quantity-container form-elements-container hidden">
             <label for="quantity">Antall</label>
             <input type="text" id="quantity" placeholder="Antall" />
+            <p class="error-msg error-msg-quantity error-msg-hidden">
+              Feltet for pris kan ikke være tomt og må være ett tall
+            </p>
           </div>
           <div class="form-elements-container">
             <label for="select-type">Type varer</label>

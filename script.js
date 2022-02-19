@@ -10,14 +10,14 @@ const needMoreOutput = document.querySelector('.need-more-output');
 const priceContainer = document.querySelector('.price-container');
 const quantityContainer = document.querySelector('.quantity-container');
 const shoppingListTotal = document.querySelector('.total-shopping-list');
+const errMsgProduct = document.querySelector('.error-msg-product');
+const errMsgPrice = document.querySelector('.error-msg-price');
+const errMsgQuantity = document.querySelector('.error-msg-quantity');
 
 const haveEnoughArr = [];
 const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
-
-// clear input field when add button triggers
-// Add logic to the inputs for numbers and empty field
 
 const toggleClass = (element) => {
   if (selectType.value === 'need-more') {
@@ -53,7 +53,7 @@ function createOutputHaveEnough(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li class="product-list">${element}</li>
+        <li class="product-list">${element.charAt(0).toUpperCase() + element.slice(1)}</li>
         <button class="delete-btn" onclick="deleteOutputHaveEnough(${index})">Slett</button>
       </div>
       `;
@@ -62,14 +62,14 @@ function createOutputHaveEnough(arr, output) {
 
 function deleteOutputHaveEnough(index) {
   const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
-  if (userAnswer.toLowerCase() === 'nei') {
+  if (userAnswer.toLowerCase().trim() === 'nei') {
     clearOutput(haveEnoughOutput);
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
-  } else if (userAnswer.toLowerCase() === 'ja') {
+  } else if (userAnswer.toLowerCase().trim() === 'ja') {
     haveEnoughArr.splice(index, 1);
     clearOutput(haveEnoughOutput);
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
-  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
+  } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
 }
@@ -78,7 +78,7 @@ function createOutputAlmostEmpty(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li class="product-list">${element}</li>
+        <li class="product-list">${element.charAt(0).toUpperCase() + element.slice(1)}</li>
         <button class="delete-btn" onclick="deleteOutputAlmostEmpty(${index})">Slett</button>
         </div>
         `;
@@ -87,14 +87,14 @@ function createOutputAlmostEmpty(arr, output) {
 
 function deleteOutputAlmostEmpty(index) {
   const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
-  if (userAnswer.toLowerCase() === 'nei') {
+  if (userAnswer.toLowerCase().trim() === 'nei') {
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  } else if (userAnswer.toLowerCase() === 'ja') {
+  } else if (userAnswer.toLowerCase().trim() === 'ja') {
     almostEmptyArr.splice(index, 1);
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
+  } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
 }
@@ -104,7 +104,7 @@ function createOutputNeedMore(arr, output) {
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container">
-        <li class="product-list">${needMoreArr[arr.indexOf(element)].product} Pris:${needMoreArr[arr.indexOf(element)].price} Antall: ${needMoreArr[arr.indexOf(element)].quantity}</li>
+        <li class="product-list">${needMoreArr[arr.indexOf(element)].quantity} ${needMoreArr[arr.indexOf(element)].product.charAt(0).toUpperCase() + needMoreArr[arr.indexOf(element)].product.slice(1)} Pris: ${needMoreArr[arr.indexOf(element)].price},- </li>
         <button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button>
       </div>
       `;
@@ -113,16 +113,16 @@ function createOutputNeedMore(arr, output) {
 
 function deleteOutputNeedMore(index) {
   const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
-  if (userAnswer.toLowerCase() === 'nei') {
+  if (userAnswer.toLowerCase().trim() === 'nei') {
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
-  } else if (userAnswer.toLowerCase() === 'ja') {
+  } else if (userAnswer.toLowerCase().trim() === 'ja') {
     needMoreArr.splice(index, 1);
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
     calculatetotalPerItem();
     caclulateTotalAllItems(calculatedPricePerItem);
-  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
+  } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
 }
@@ -143,32 +143,72 @@ function calculatetotalPerItem() {
 }
 
 function getUserinput() {
-  productValue = product.value;
-  priceValue = price.value;
-  quantityValue = quantity.value;
+  productValue = product.value.trim();
+  priceValue = price.value.trim();
+  quantityValue = quantity.value.trim();
   if (selectType.value === 'have-enough') {
-    haveEnoughArr.push(productValue);
-    clearOutput(haveEnoughOutput);
-    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
-    clearInputField(product);
+    if (productValue === '') {
+      product.classList.add('error-border-input');
+      errMsgProduct.classList.remove('error-msg-hidden');
+    } else {
+      product.classList.remove('error-border-input');
+      errMsgProduct.classList.add('error-msg-hidden');
+      haveEnoughArr.push(productValue);
+      clearOutput(haveEnoughOutput);
+      createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+      clearInputField(product);
+    }
   } else if (selectType.value === 'almost-empty') {
-    almostEmptyArr.push(productValue);
-    clearOutput(almostEmptyOutput);
-    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-    clearInputField(product);
+    if (productValue === '') {
+      product.classList.add('error-border-input');
+      errMsgProduct.classList.remove('error-msg-hidden');
+    } else {
+      product.classList.remove('error-border-input');
+      errMsgProduct.classList.add('error-msg-hidden');
+      almostEmptyArr.push(productValue);
+      clearOutput(almostEmptyOutput);
+      createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+      clearInputField(product);
+    }
   } else if (selectType.value === 'need-more') {
-    needMoreArr.push({
-      product: productValue,
-      price: priceValue,
-      quantity: quantityValue,
-    });
-    clearOutput(needMoreOutput);
-    createOutputNeedMore(needMoreArr, needMoreOutput);
-    calculatetotalPerItem();
-    caclulateTotalAllItems(calculatedPricePerItem);
-    clearInputField(product);
-    clearInputField(price);
-    clearInputField(quantity);
+    if (productValue === '') {
+      product.classList.add('error-border-input');
+      errMsgProduct.classList.remove('error-msg-hidden');
+    } else {
+      product.classList.remove('error-border-input');
+      errMsgProduct.classList.add('error-msg-hidden');
+    }
+
+    if (priceValue === '' || isNaN(priceValue)) {
+      price.classList.add('error-border-input');
+      errMsgPrice.classList.remove('error-msg-hidden');
+    } else {
+      price.classList.remove('error-border-input');
+      errMsgPrice.classList.add('error-msg-hidden');
+    }
+
+    if (quantityValue === '' || isNaN(quantityValue)) {
+      quantity.classList.add('error-border-input');
+      errMsgQuantity.classList.remove('error-msg-hidden');
+    } else {
+      quantity.classList.remove('error-border-input');
+      errMsgQuantity.classList.add('error-msg-hidden');
+    }
+
+    if (productValue !== '' && priceValue !== '' && typeof priceValue === 'number' && quantityValue !== '' && typeof quantityValue === 'number') {
+      needMoreArr.push({
+        product: productValue,
+        price: priceValue,
+        quantity: quantityValue,
+      });
+      clearOutput(needMoreOutput);
+      createOutputNeedMore(needMoreArr, needMoreOutput);
+      calculatetotalPerItem();
+      caclulateTotalAllItems(calculatedPricePerItem);
+      clearInputField(product);
+      clearInputField(price);
+      clearInputField(quantity);
+    }
   }
 }
 
