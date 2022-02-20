@@ -22,24 +22,51 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
-// Modularise the application
-// Implement transitions for hidden elements library
-// Create readme file that explains how to run the project
-
 const toggleClass = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
+    setTimeout(() => {
+      element.classList.remove('visuallyhidden');
+    }, 10);
   } else {
-    element.classList.add('hidden');
+    element.classList.add('visuallyhidden');
+    element.addEventListener('transitionend', (e) => {
+      element.classList.add('hidden');
+    }, {
+      capture: false,
+      once: true,
+      passive: false
+    });
   }
 };
 
 const toggleShoppingList = (arr, shoppingList) => {
   if (arr.length === 0) {
-    shoppingList.classList.add('hidden');
+    shoppingList.classList.add('visuallyhidden');
+    shoppingList.addEventListener('transitionend', (e) => {
+      shoppingList.classList.add('hidden');
+    }, {
+      capture: false,
+      once: true,
+      passive: false
+    });
+
   } else {
     shoppingList.classList.remove('hidden');
+    setTimeout(() => {
+      shoppingList.classList.remove('visuallyhidden');
+    }, 10);
   }
+};
+
+const displayErrMsg = (errMsg) => {
+  errMsg.classList.remove('hidden');
+  errMsg.classList.remove('visuallyhidden');
+};
+
+const hideErrMsg = (errMsg) => {
+  errMsg.classList.add('hidden');
+  errMsg.classList.add('visuallyhidden');
 };
 
 const clearOutput = (output) => {
@@ -166,10 +193,11 @@ function getUserinput() {
   if (selectType.value === 'have-enough') {
     if (productValue === '' || !isNaN(productValue)) {
       product.classList.add('error-border-input');
-      errMsgProduct.classList.remove('error-msg-hidden');
+      displayErrMsg(errMsgProduct);
+      errMsgProduct.classList.remove('visuallyhidden');
     } else {
       product.classList.remove('error-border-input');
-      errMsgProduct.classList.add('error-msg-hidden');
+      hideErrMsg(errMsgProduct);
       haveEnoughArr.push(productValue);
       clearOutput(haveEnoughOutput);
       createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
@@ -179,10 +207,10 @@ function getUserinput() {
   } else if (selectType.value === 'almost-empty') {
     if (productValue === '' || !isNaN(productValue)) {
       product.classList.add('error-border-input');
-      errMsgProduct.classList.remove('error-msg-hidden');
+      displayErrMsg(errMsgProduct);
     } else {
       product.classList.remove('error-border-input');
-      errMsgProduct.classList.add('error-msg-hidden');
+      hideErrMsg(errMsgProduct);
       almostEmptyArr.push(productValue);
       clearOutput(almostEmptyOutput);
       createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
@@ -192,26 +220,26 @@ function getUserinput() {
   } else if (selectType.value === 'need-more') {
     if (productValue === '' || !isNaN(productValue)) {
       product.classList.add('error-border-input');
-      errMsgProduct.classList.remove('error-msg-hidden');
+      displayErrMsg(errMsgProduct);
     } else {
       product.classList.remove('error-border-input');
-      errMsgProduct.classList.add('error-msg-hidden');
+      hideErrMsg(errMsgProduct);
     }
 
     if (priceValue === '' || isNaN(priceValue)) {
       price.classList.add('error-border-input');
-      errMsgPrice.classList.remove('error-msg-hidden');
+      displayErrMsg(errMsgPrice);
     } else {
       price.classList.remove('error-border-input');
-      errMsgPrice.classList.add('error-msg-hidden');
+      hideErrMsg(errMsgPrice);
     }
 
     if (quantityValue === '' || isNaN(quantityValue)) {
       quantity.classList.add('error-border-input');
-      errMsgQuantity.classList.remove('error-msg-hidden');
+      displayErrMsg(errMsgQuantity);
     } else {
       quantity.classList.remove('error-border-input');
-      errMsgQuantity.classList.add('error-msg-hidden');
+      hideErrMsg(errMsgQuantity);
     }
 
     if (!isNaN(priceValue) && !isNaN(quantityValue) && priceValue !== '' && quantityValue !== '' && productValue !== '' && isNaN(productValue)) {

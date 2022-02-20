@@ -24,21 +24,25 @@
           <div class="form-elements-container">
             <label for="product">Legg inn vare</label>
             <input type="text" id="product" placeholder="Vare" />
-            <p class="error-msg error-msg-product error-msg-hidden">
+            <p class="error-msg error-msg-product hidden visuallyhidden">
               Vare kan ikke være tomt og kan ikke være ett tall
             </p>
           </div>
-          <div class="price-container form-elements-container hidden">
+          <div
+            class="price-container form-elements-container hidden visuallyhidden"
+          >
             <label for="price">Pris</label>
             <input type="text" id="price" placeholder="Pris" />
-            <p class="error-msg error-msg-price error-msg-hidden">
+            <p class="error-msg error-msg-price hidden visuallyhidden">
               Pris kan ikke være tomt og må være ett tall
             </p>
           </div>
-          <div class="quantity-container form-elements-container hidden">
+          <div
+            class="quantity-container form-elements-container hidden visuallyhidden"
+          >
             <label for="quantity">Antall</label>
             <input type="text" id="quantity" placeholder="Antall" />
-            <p class="error-msg error-msg-quantity error-msg-hidden">
+            <p class="error-msg error-msg-quantity hidden visuallyhidden">
               Antall kan ikke være tomt og må være ett tall
             </p>
           </div>
@@ -64,7 +68,10 @@
         </div>
       </div>
       <div class="user-list-container">
-        <div class="shopping-list-card hidden" id="have-enough-container">
+        <div
+          class="shopping-list-card hidden visuallyhidden"
+          id="have-enough-container"
+        >
           <div class="shopping-list-heading">
             <h2>Har nok av</h2>
           </div>
@@ -72,7 +79,10 @@
             <ul class="have-enough-output"></ul>
           </div>
         </div>
-        <div class="shopping-list-card hidden" id="almost-empty-container">
+        <div
+          class="shopping-list-card hidden visuallyhidden"
+          id="almost-empty-container"
+        >
           <div class="shopping-list-heading">
             <h2>Nesten tomt</h2>
           </div>
@@ -80,7 +90,10 @@
             <ul class="almost-empty-output"></ul>
           </div>
         </div>
-        <div class="shopping-list-card hidden" id="need-more-container">
+        <div
+          class="shopping-list-card hidden visuallyhidden"
+          id="need-more-container"
+        >
           <div class="shopping-list-heading">
             <h2>Må handle mer</h2>
           </div>
