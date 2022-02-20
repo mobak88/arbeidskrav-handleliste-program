@@ -195,12 +195,13 @@ function getUserinput() {
       errMsgQuantity.classList.add('error-msg-hidden');
     }
 
-    if (productValue !== '' && priceValue !== '' && quantityValue !== '' && typeof priceValue === 'number' && typeof quantityValue === 'number' && typeof productValue === 'string') {
+    if (!isNaN(priceValue) && !isNaN(quantityValue) && priceValue !== '' && quantityValue !== '' && productValue !== '' && isNaN(productValue)) {
       needMoreArr.push({
         product: productValue,
         price: priceValue,
         quantity: quantityValue,
       });
+      console.log(needMoreArr);
       clearOutput(needMoreOutput);
       createOutputNeedMore(needMoreArr, needMoreOutput);
       calculatetotalPerItem();
