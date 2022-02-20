@@ -2,6 +2,9 @@ const price = document.getElementById('price');
 const quantity = document.getElementById('quantity');
 const selectType = document.getElementById('select-type');
 const product = document.getElementById('product');
+const haveEnoughContainer = document.getElementById('have-enough-container');
+const almostEmptyContainer = document.getElementById('almost-empty-container');
+const needMoreContainer = document.getElementById('need-more-container');
 
 const btn = document.querySelector('.btn');
 const haveEnoughOutput = document.querySelector('.have-enough-output');
@@ -19,11 +22,23 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
+// Modularise the application
+// Implement transitions for hidden elements library
+// Create readme file that explains how to run the project
+
 const toggleClass = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
   } else {
     element.classList.add('hidden');
+  }
+};
+
+const toggleShoppingList = (arr, shoppingList) => {
+  if (arr.length === 0) {
+    shoppingList.classList.add('hidden');
+  } else {
+    shoppingList.classList.remove('hidden');
   }
 };
 
@@ -45,7 +60,6 @@ const caclulateTotalAllItems = (arr) => {
   const reducedPrice = arr.reduce((prevVal, curVal) => {
     return prevVal += curVal;
   }, 0);
-  console.log(reducedPrice);
   uppdateShoppingListTotal(reducedPrice);
 };
 
@@ -69,6 +83,7 @@ function deleteOutputHaveEnough(index) {
     haveEnoughArr.splice(index, 1);
     clearOutput(haveEnoughOutput);
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+    toggleShoppingList(haveEnoughArr, haveEnoughContainer);
   } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
@@ -94,6 +109,7 @@ function deleteOutputAlmostEmpty(index) {
     almostEmptyArr.splice(index, 1);
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+    toggleShoppingList(almostEmptyArr, almostEmptyContainer);
   } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
@@ -120,6 +136,7 @@ function deleteOutputNeedMore(index) {
     needMoreArr.splice(index, 1);
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
+    toggleShoppingList(needMoreArr, needMoreContainer);
     calculatetotalPerItem();
     caclulateTotalAllItems(calculatedPricePerItem);
   } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
@@ -147,7 +164,7 @@ function getUserinput() {
   priceValue = price.value.trim();
   quantityValue = quantity.value.trim();
   if (selectType.value === 'have-enough') {
-    if (productValue === '') {
+    if (productValue === '' || !isNaN(productValue)) {
       product.classList.add('error-border-input');
       errMsgProduct.classList.remove('error-msg-hidden');
     } else {
@@ -156,10 +173,11 @@ function getUserinput() {
       haveEnoughArr.push(productValue);
       clearOutput(haveEnoughOutput);
       createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+      toggleShoppingList(haveEnoughArr, haveEnoughContainer);
       clearInputField(product);
     }
   } else if (selectType.value === 'almost-empty') {
-    if (productValue === '') {
+    if (productValue === '' || !isNaN(productValue)) {
       product.classList.add('error-border-input');
       errMsgProduct.classList.remove('error-msg-hidden');
     } else {
@@ -168,10 +186,11 @@ function getUserinput() {
       almostEmptyArr.push(productValue);
       clearOutput(almostEmptyOutput);
       createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+      toggleShoppingList(almostEmptyArr, almostEmptyContainer);
       clearInputField(product);
     }
   } else if (selectType.value === 'need-more') {
-    if (productValue === '') {
+    if (productValue === '' || !isNaN(productValue)) {
       product.classList.add('error-border-input');
       errMsgProduct.classList.remove('error-msg-hidden');
     } else {
@@ -201,9 +220,9 @@ function getUserinput() {
         price: priceValue,
         quantity: quantityValue,
       });
-      console.log(needMoreArr);
       clearOutput(needMoreOutput);
       createOutputNeedMore(needMoreArr, needMoreOutput);
+      toggleShoppingList(needMoreArr, needMoreContainer);
       calculatetotalPerItem();
       caclulateTotalAllItems(calculatedPricePerItem);
       clearInputField(product);
@@ -218,9 +237,11 @@ function addProduct(e) {
   getUserinput();
 }
 
-/* for (let i = 0; i < arr.length; i++) {
-      output.innerHTML += `
-        <li>${haveEnoughArr[i]}</li>
-        <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
-        `;
-    } */
+// Valgte å bruke foreach loops fordi at man looper gjennom alle elementer
+// i dette prosjektet og har derfor kommentert ut for loop siden det var i kravet
+// for (let i = 0; i < arr.length; i++) {
+//       output.innerHTML += `
+//         <li>${haveEnoughArr[i]}</li>
+//         <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
+//         `;
+//     }

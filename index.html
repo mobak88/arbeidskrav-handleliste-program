@@ -10,10 +10,12 @@
   <body>
     <main>
       <div class="intro-container">
-        <h1>Handleliste program</h1>
+        <h1>Din handleliste</h1>
         <p>
           Her kan du legge varer og pris til handlelisten din og programmet vil
-          regne ut prisen på de varene du skal kjøpe.
+          regne ut prisen på de varene du skal kjøpe. Dersom du velger varer du
+          må kjøpe i rullegardinen blir feltene for pris og antall varer
+          tilgjengelige.
         </p>
       </div>
 
@@ -23,21 +25,21 @@
             <label for="product">Legg inn vare</label>
             <input type="text" id="product" placeholder="Vare" />
             <p class="error-msg error-msg-product error-msg-hidden">
-              Du må legge inn en vare
+              Vare kan ikke være tomt og kan ikke være ett tall
             </p>
           </div>
           <div class="price-container form-elements-container hidden">
             <label for="price">Pris</label>
             <input type="text" id="price" placeholder="Pris" />
             <p class="error-msg error-msg-price error-msg-hidden">
-              Feltet for pris kan ikke være tomt og må være ett tall
+              Pris kan ikke være tomt og må være ett tall
             </p>
           </div>
           <div class="quantity-container form-elements-container hidden">
             <label for="quantity">Antall</label>
             <input type="text" id="quantity" placeholder="Antall" />
             <p class="error-msg error-msg-quantity error-msg-hidden">
-              Feltet for pris kan ikke være tomt og må være ett tall
+              Antall kan ikke være tomt og må være ett tall
             </p>
           </div>
           <div class="form-elements-container">
@@ -54,27 +56,38 @@
           </div>
           <button class="btn" onclick="addProduct(event)">Legg til</button>
         </form>
+        <div class="total-price-container">
+          <h2>Totalpris Handleliste</h2>
+          <ul class="total-shopping-list">
+            <li>0,-</li>
+          </ul>
+        </div>
       </div>
-      <hr />
       <div class="user-list-container">
-        <div class="shopping-list-card">
-          <h2>Har nok av</h2>
-          <ul class="have-enough-output"></ul>
+        <div class="shopping-list-card hidden" id="have-enough-container">
+          <div class="shopping-list-heading">
+            <h2>Har nok av</h2>
+          </div>
+          <div class="shopping-list-items">
+            <ul class="have-enough-output"></ul>
+          </div>
         </div>
-        <div class="shopping-list-card">
-          <h2>Nesten tomt</h2>
-          <ul class="almost-empty-output"></ul>
+        <div class="shopping-list-card hidden" id="almost-empty-container">
+          <div class="shopping-list-heading">
+            <h2>Nesten tomt</h2>
+          </div>
+          <div class="shopping-list-items">
+            <ul class="almost-empty-output"></ul>
+          </div>
         </div>
-        <div class="shopping-list-card">
-          <h2>Må handle mer</h2>
-          <ul class="need-more-output"></ul>
+        <div class="shopping-list-card hidden" id="need-more-container">
+          <div class="shopping-list-heading">
+            <h2>Må handle mer</h2>
+          </div>
+          <div class="shopping-list-items">
+            <ul class="need-more-output"></ul>
+          </div>
         </div>
-      </div>
-      <div class="total-price-container">
-        <h2>Totalpris Handleliste</h2>
-        <ul class="total-shopping-list">
-          <li>0,-</li>
-        </ul>
       </div>
     </main>
     <script src="./script.js"></script>
