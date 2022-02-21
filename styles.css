@@ -99,7 +99,7 @@ select,
 .user-list-container {
   display: flex;
   gap: 40px;
-  margin-top: 50px;
+  margin: 50px 0 100px 0;
 }
 
 .hidden {
@@ -110,6 +110,10 @@ select,
   opacity: 0;
 }
 
+.visuallyShown {
+  opacity: 1;
+}
+
 .shopping-list-card {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: #fff;
@@ -118,7 +122,7 @@ select,
 }
 
 .need-more-inputs-container {
-  transition: all 0.3s ease-in;
+  transition: all 0.5s;
 }
 
 .shopping-list-items {

@@ -21,22 +21,22 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
-/* Courtesy to  LOUIS LAZARIS for providing a great solution for animating hidden elements https://www.impressivewebs.com/animate-display-block-none/ */
 
 const toggleInputs = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
-    setTimeout(() => {
+    element.clientWidth;
+    requestAnimationFrame(() => {
       element.classList.remove('visuallyhidden');
-    }, 20);
-  } else {
-    element.classList.add('visuallyhidden');
-    element.addEventListener('transitionend', () => {
+      element.classList.add('visuallyShown');
+    });
+  } else if (selectType.value !== 'need-more') {
+    element.addEventListener("transitionend", () => {
       element.classList.add('hidden');
-    }, {
-      capture: false,
-      once: true,
-      passive: false
+    });
+    requestAnimationFrame(() => {
+      element.classList.remove('visuallyShown');
+      element.classList.add('visuallyhidden');
     });
   }
 };
@@ -45,12 +45,13 @@ selectType.addEventListener('change', () => {
   toggleInputs(needMoreInputsContainer);
 });
 
+/* Courtesy to  LOUIS LAZARIS for providing a great solution for animating hidden elements https://www.impressivewebs.com/animate-display-block-none/ */
+
 const toggleShoppingList = (arr, shoppingList) => {
   if (arr.length > 0) {
     shoppingList.classList.remove('hidden');
-    setTimeout(() => {
-      shoppingList.classList.remove('visuallyhidden');
-    }, 30);
+    shoppingList.clientWidth;
+    shoppingList.classList.remove('visuallyhidden');
   } else {
     shoppingList.classList.add('visuallyhidden');
     shoppingList.addEventListener('transitionend', () => {
