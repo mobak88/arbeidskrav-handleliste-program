@@ -21,7 +21,7 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
-
+/* Cudos to Rune Lillesveen for providing a great solution for animations with display none: https://codepen.io/lilles/pen/NWwMPJz */
 let hidden = true;
 const toggleInputs = (element) => {
   if (selectType.value === 'need-more' && hidden === true) {
