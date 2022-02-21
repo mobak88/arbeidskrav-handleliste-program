@@ -26,16 +26,14 @@ let hidden = true;
 const toggleInputs = (element) => {
   if (selectType.value === 'need-more' && hidden === true) {
     hidden = false;
-    console.log('test1');
     element.classList.remove('hidden');
     element.clientWidth;
     requestAnimationFrame(() => {
-      element.classList.remove('visuallyhidden');
-      element.classList.add('visuallyShown');
+      element.classList.remove('size-hidden');
+      element.classList.add('size-shown');
     });
   } else if (selectType.value === 'almost-empty' && hidden === false) {
     hidden = true;
-    console.log('test2');
     element.addEventListener("transitionend", () => {
       element.classList.add('hidden');
     }, {
@@ -44,12 +42,11 @@ const toggleInputs = (element) => {
       passive: false
     });
     requestAnimationFrame(() => {
-      element.classList.remove('visuallyShown');
-      element.classList.add('visuallyhidden');
+      element.classList.remove('size-shown');
+      element.classList.add('size-hidden');
     });
   } else if (selectType.value === 'have-enough' && hidden === false) {
     hidden = true;
-    console.log('test3');
     element.addEventListener("transitionend", () => {
       element.classList.add('hidden');
     }, {
@@ -58,18 +55,17 @@ const toggleInputs = (element) => {
       passive: false
     });
     requestAnimationFrame(() => {
-      element.classList.remove('visuallyShown');
-      element.classList.add('visuallyhidden');
+      element.classList.remove('size-shown');
+      element.classList.add('size-hidden');
     });
   }
 };
 
 selectType.addEventListener('change', () => {
   toggleInputs(needMoreInputsContainer);
-  console.log(selectType.value);
-  console.log(hidden);
 });
 
+// Prøv å la bredden vokse og krympe istedenfor istedet
 const toggleShoppingList = (arr, shoppingList) => {
   if (arr.length > 0) {
     shoppingList.classList.remove('hidden');
