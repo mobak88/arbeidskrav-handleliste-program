@@ -33,6 +33,10 @@ const toggleInputs = (element) => {
   } else if (selectType.value !== 'need-more') {
     element.addEventListener("transitionend", () => {
       element.classList.add('hidden');
+    }, {
+      capture: false,
+      once: true,
+      passive: false
     });
     requestAnimationFrame(() => {
       element.classList.remove('visuallyShown');
