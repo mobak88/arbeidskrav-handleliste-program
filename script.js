@@ -33,9 +33,7 @@ const toggleInputs = (element) => {
       element.classList.remove('visuallyhidden');
       element.classList.add('visuallyShown');
     });
-  }
-
-  if (selectType.value === 'almost-empty' && hidden === false) {
+  } else if (selectType.value === 'almost-empty' && hidden === false) {
     hidden = true;
     console.log('test2');
     element.addEventListener("transitionend", () => {
@@ -49,9 +47,7 @@ const toggleInputs = (element) => {
       element.classList.remove('visuallyShown');
       element.classList.add('visuallyhidden');
     });
-  }
-
-  if (selectType.value === 'have-enough' && hidden === false) {
+  } else if (selectType.value === 'have-enough' && hidden === false) {
     hidden = true;
     console.log('test3');
     element.addEventListener("transitionend", () => {
