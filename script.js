@@ -10,8 +10,7 @@ const btn = document.querySelector('.btn');
 const haveEnoughOutput = document.querySelector('.have-enough-output');
 const almostEmptyOutput = document.querySelector('.almost-empty-output');
 const needMoreOutput = document.querySelector('.need-more-output');
-const priceContainer = document.querySelector('.price-container');
-const quantityContainer = document.querySelector('.quantity-container');
+const needMoreInputsContainer = document.querySelector('.need-more-inputs-container');
 const shoppingListTotal = document.querySelector('.total-shopping-list');
 const errMsgProduct = document.querySelector('.error-msg-product');
 const errMsgPrice = document.querySelector('.error-msg-price');
@@ -22,15 +21,17 @@ const almostEmptyArr = [];
 const needMoreArr = [];
 let calculatedPricePerItem = [];
 
-const toggleClass = (element) => {
+/* Courtesy to  LOUIS LAZARIS for providing a great solution for animating hidden elements https://www.impressivewebs.com/animate-display-block-none/ */
+
+const toggleInputs = (element) => {
   if (selectType.value === 'need-more') {
     element.classList.remove('hidden');
     setTimeout(() => {
       element.classList.remove('visuallyhidden');
-    }, 10);
+    }, 200);
   } else {
     element.classList.add('visuallyhidden');
-    element.addEventListener('transitionend', (e) => {
+    element.addEventListener('transitionend', () => {
       element.classList.add('hidden');
     }, {
       capture: false,
@@ -40,8 +41,17 @@ const toggleClass = (element) => {
   }
 };
 
+selectType.addEventListener('change', () => {
+  toggleInputs(needMoreInputsContainer);
+});
+
 const toggleShoppingList = (arr, shoppingList) => {
-  if (arr.length === 0) {
+  if (arr.length > 0) {
+    shoppingList.classList.remove('hidden');
+    setTimeout(() => {
+      shoppingList.classList.remove('visuallyhidden');
+    }, 30);
+  } else {
     shoppingList.classList.add('visuallyhidden');
     shoppingList.addEventListener('transitionend', (e) => {
       shoppingList.classList.add('hidden');
@@ -50,12 +60,6 @@ const toggleShoppingList = (arr, shoppingList) => {
       once: true,
       passive: false
     });
-
-  } else {
-    shoppingList.classList.remove('hidden');
-    setTimeout(() => {
-      shoppingList.classList.remove('visuallyhidden');
-    }, 10);
   }
 };
 
@@ -128,7 +132,7 @@ function createOutputAlmostEmpty(arr, output) {
 }
 
 function deleteOutputAlmostEmpty(index) {
-  const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
+  const userAnswer = prompt(`Vil du slette ${almostEmptyArr[index]}?`);
   if (userAnswer.toLowerCase().trim() === 'nei') {
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);

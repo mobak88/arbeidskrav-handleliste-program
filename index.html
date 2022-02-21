@@ -28,31 +28,25 @@
               Vare kan ikke være tomt og kan ikke være ett tall
             </p>
           </div>
-          <div
-            class="price-container form-elements-container hidden visuallyhidden"
-          >
-            <label for="price">Pris</label>
-            <input type="text" id="price" placeholder="Pris" />
-            <p class="error-msg error-msg-price hidden visuallyhidden">
-              Pris kan ikke være tomt og må være ett tall
-            </p>
-          </div>
-          <div
-            class="quantity-container form-elements-container hidden visuallyhidden"
-          >
-            <label for="quantity">Antall</label>
-            <input type="text" id="quantity" placeholder="Antall" />
-            <p class="error-msg error-msg-quantity hidden visuallyhidden">
-              Antall kan ikke være tomt og må være ett tall
-            </p>
+          <div class="need-more-inputs-container hidden visuallyhidden">
+            <div class="form-elements-container">
+              <label for="price">Pris</label>
+              <input type="text" id="price" placeholder="Pris" />
+              <p class="error-msg error-msg-price hidden visuallyhidden">
+                Pris kan ikke være tomt og må være ett tall
+              </p>
+            </div>
+            <div class="form-elements-container">
+              <label for="quantity">Antall</label>
+              <input type="text" id="quantity" placeholder="Antall" />
+              <p class="error-msg error-msg-quantity hidden visuallyhidden">
+                Antall kan ikke være tomt og må være ett tall
+              </p>
+            </div>
           </div>
           <div class="form-elements-container">
             <label for="select-type">Type varer</label>
-            <select
-              name="select-type"
-              id="select-type"
-              onchange="toggleClass(priceContainer), toggleClass(quantityContainer)"
-            >
+            <select name="select-type" id="select-type">
               <option value="have-enough">Varer du har nok av</option>
               <option value="almost-empty">Varer du begynner å tom for</option>
               <option value="need-more">Varer du må kjøpe</option>

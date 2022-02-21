@@ -70,6 +70,7 @@ select,
   display: flex;
   flex-direction: column;
   gap: 18px;
+  height: 100%;
 }
 
 .product-container {
@@ -92,7 +93,7 @@ select,
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: all 0.65s ease-out;
+  transition: all 0.3s ease-in;
 }
 
 .user-list-container {
@@ -112,7 +113,8 @@ select,
 .shopping-list-card {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: #fff;
-  transition: all 0.65s ease-out;
+  transition: all 0.3s ease-in;
+  height: 100%;
 }
 
 .shopping-list-items {
