@@ -117,6 +117,10 @@ select,
   height: 100%;
 }
 
+.need-more-inputs-container {
+  transition: all 0.3s ease-in;
+}
+
 .shopping-list-items {
   display: flex;
   flex-direction: column;

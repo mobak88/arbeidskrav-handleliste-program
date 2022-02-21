@@ -28,7 +28,7 @@ const toggleInputs = (element) => {
     element.classList.remove('hidden');
     setTimeout(() => {
       element.classList.remove('visuallyhidden');
-    }, 200);
+    }, 20);
   } else {
     element.classList.add('visuallyhidden');
     element.addEventListener('transitionend', () => {
@@ -53,7 +53,7 @@ const toggleShoppingList = (arr, shoppingList) => {
     }, 30);
   } else {
     shoppingList.classList.add('visuallyhidden');
-    shoppingList.addEventListener('transitionend', (e) => {
+    shoppingList.addEventListener('transitionend', () => {
       shoppingList.classList.add('hidden');
     }, {
       capture: false,
