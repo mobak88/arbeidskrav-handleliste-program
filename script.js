@@ -22,15 +22,38 @@ const needMoreArr = [];
 let calculatedPricePerItem = [];
 
 
+let hidden = true;
 const toggleInputs = (element) => {
-  if (selectType.value === 'need-more') {
+  if (selectType.value === 'need-more' && hidden === true) {
+    hidden = false;
+    console.log('test1');
     element.classList.remove('hidden');
     element.clientWidth;
     requestAnimationFrame(() => {
       element.classList.remove('visuallyhidden');
       element.classList.add('visuallyShown');
     });
-  } else if (selectType.value !== 'need-more') {
+  }
+
+  if (selectType.value === 'almost-empty' && hidden === false) {
+    hidden = true;
+    console.log('test2');
+    element.addEventListener("transitionend", () => {
+      element.classList.add('hidden');
+    }, {
+      capture: false,
+      once: true,
+      passive: false
+    });
+    requestAnimationFrame(() => {
+      element.classList.remove('visuallyShown');
+      element.classList.add('visuallyhidden');
+    });
+  }
+
+  if (selectType.value === 'have-enough' && hidden === false) {
+    hidden = true;
+    console.log('test3');
     element.addEventListener("transitionend", () => {
       element.classList.add('hidden');
     }, {
@@ -47,9 +70,9 @@ const toggleInputs = (element) => {
 
 selectType.addEventListener('change', () => {
   toggleInputs(needMoreInputsContainer);
+  console.log(selectType.value);
+  console.log(hidden);
 });
-
-/* Courtesy to  LOUIS LAZARIS for providing a great solution for animating hidden elements https://www.impressivewebs.com/animate-display-block-none/ */
 
 const toggleShoppingList = (arr, shoppingList) => {
   if (arr.length > 0) {
