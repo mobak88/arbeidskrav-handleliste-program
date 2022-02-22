@@ -54,11 +54,31 @@
           </div>
           <button class="btn" onclick="addProduct(event)">Legg til</button>
         </form>
-        <div class="total-price-container">
-          <h2>Totalpris Handleliste</h2>
-          <ul class="total-shopping-list">
-            <li>0,-</li>
-          </ul>
+        <div class="shopping-list-container">
+          <div class="total-price-container">
+            <h2>Totalpris Handleliste</h2>
+            <ul class="total-shopping-list">
+              <li>0,-</li>
+            </ul>
+          </div>
+          <div
+            class="shopping-list-card need-more-card hidden visuallyhidden"
+            id="need-more-container"
+          >
+            <div class="shopping-list-heading">
+              <h2>Må handle mer</h2>
+            </div>
+            <div class="shopping-list-items-need-more">
+              <div class="need-more-heading-container">
+                <h2 class="need-more-heading">Produkt</h2>
+                <h2 class="need-more-heading">Antall</h2>
+                <h2 class="need-more-heading">Pris</h2>
+              </div>
+              <div>
+                <ul class="need-more-output"></ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="user-list-container">
@@ -82,24 +102,6 @@
           </div>
           <div class="shopping-list-items">
             <ul class="almost-empty-output"></ul>
-          </div>
-        </div>
-        <div
-          class="shopping-list-card need-more-card hidden visuallyhidden"
-          id="need-more-container"
-        >
-          <div class="shopping-list-heading">
-            <h2>Må handle mer</h2>
-          </div>
-          <div class="shopping-list-items-need-more">
-            <div class="need-more-heading-container">
-              <h2 class="need-more-heading">Produkt</h2>
-              <h2 class="need-more-heading">Antall</h2>
-              <h2 class="need-more-heading">Pris</h2>
-            </div>
-            <div>
-              <ul class="need-more-output"></ul>
-            </div>
           </div>
         </div>
       </div>
