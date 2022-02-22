@@ -327,4 +327,8 @@ select,
   .need-more-heading {
     font-size: 18px;
   }
+
+  .product-list-need-more {
+    width: 60px;
+  }
 }
