@@ -170,16 +170,18 @@ function createOutputNeedMore(arr, output) {
   deleteBtn = document.querySelectorAll('.delete-btn');
   arr.forEach((element, index) => {
     output.innerHTML += `
-      <div class="product-container">
-        <li class="product-list">${needMoreArr[arr.indexOf(element)].quantity} ${needMoreArr[arr.indexOf(element)].product.charAt(0).toUpperCase() + needMoreArr[arr.indexOf(element)].product.slice(1)} Pris: ${needMoreArr[arr.indexOf(element)].price},- </li>
-        <button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button>
+      <div class="product-container-need-more">
+        <li class="product-list-need-more product-name-spacing">${needMoreArr[arr.indexOf(element)].product.charAt(0).toUpperCase() + needMoreArr[arr.indexOf(element)].product.slice(1)}</li>
+        <li class="product-list-need-more quantity-spacing">${needMoreArr[arr.indexOf(element)].quantity}</li>
+        <li class="product-list-need-more">${needMoreArr[arr.indexOf(element)].price},-</li>
+        <li><button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button></li>
       </div>
       `;
   });
 }
 
 function deleteOutputNeedMore(index) {
-  const userAnswer = prompt(`Vil du slette ${haveEnoughArr[index]}?`);
+  const userAnswer = prompt(`Vil du slette ${needMoreArr[index].product}?`);
   if (userAnswer.toLowerCase().trim() === 'nei') {
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
