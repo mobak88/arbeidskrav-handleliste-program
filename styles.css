@@ -303,4 +303,28 @@ select,
   .need-more-card {
     width: 280px;
   }
+
+  .need-more-heading-container {
+    gap: 8px;
+  }
+
+  .product-name-spacing {
+    margin-right: 35px;
+  }
+
+  .quantity-spacing {
+    margin-right: 15px;
+  }
+
+  .quantity-spacing {
+    margin-right: 15px;
+  }
+
+  .shopping-list-items-need-more {
+    padding: 40px 20px;
+  }
+
+  .need-more-heading {
+    font-size: 18px;
+  }
 }

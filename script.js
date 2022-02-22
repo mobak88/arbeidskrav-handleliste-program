@@ -173,7 +173,7 @@ function createOutputNeedMore(arr, output) {
       <div class="product-container-need-more">
         <li class="product-list-need-more product-name-spacing">${needMoreArr[arr.indexOf(element)].product.charAt(0).toUpperCase() + needMoreArr[arr.indexOf(element)].product.slice(1)}</li>
         <li class="product-list-need-more quantity-spacing">${needMoreArr[arr.indexOf(element)].quantity}</li>
-        <li class="product-list-need-more">${needMoreArr[arr.indexOf(element)].price},-</li>
+        <li class="product-list-need-more price-spacing">${needMoreArr[arr.indexOf(element)].price},-</li>
         <li><button class="delete-btn" onclick="deleteOutputNeedMore(${index})">Slett</button></li>
       </div>
       `;
