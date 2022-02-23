@@ -16,10 +16,7 @@ const errMsgProduct = document.querySelector('.error-msg-product');
 const errMsgPrice = document.querySelector('.error-msg-price');
 const errMsgQuantity = document.querySelector('.error-msg-quantity');
 
-const localHaveEnough = JSON.parse(localStorage.getItem('productHaveEnough'));
-console.log(localHaveEnough);
-
-const haveEnoughArr = localHaveEnough || [];
+const haveEnoughArr = JSON.parse(localStorage.getItem('productHaveEnough')) || [];
 const almostEmptyArr = JSON.parse(localStorage.getItem('productAlmostEmpty')) || [];
 const needMoreArr = JSON.parse(localStorage.getItem('productNeedMore')) || [];
 let calculatedPricePerItem = [];
@@ -91,6 +88,20 @@ const uppdateShoppingListTotal = (price) => {
     <li>${price},-</li>
     `;
 };
+
+const localPrice = JSON.parse(localStorage.getItem('productNeedMore'));
+console.log(localPrice);
+
+if (localPrice !== null) {
+  const newReducePrice = [];
+  for (let i = 0; i < localPrice.length; i++) {
+    console.log(localPrice[i].price);
+    newReducePrice.push(localPrice[i].price * localPrice[i].quantity);
+  }
+  calculatedPricePerItem = [...newReducePrice];
+  console.log(newReducePrice);
+  console.log(calculatedPricePerItem);
+}
 
 const caclulateTotalAllItems = (arr) => {
   const reducedPrice = arr.reduce((prevVal, curVal) => {
@@ -186,26 +197,20 @@ function deleteOutputNeedMore(index) {
 }
 
 const toggleShoppingList = (arr, shoppingList) => {
-  if (arr.length > 0) {
-    console.log('show');
-    shoppingList.classList.remove('hidden');
-    shoppingList.clientWidth;
-    shoppingList.classList.remove('visuallyhidden');
-    clearOutput(haveEnoughOutput);
-    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
-    clearOutput(needMoreOutput);
-    createOutputNeedMore(needMoreArr, needMoreOutput);
-    clearOutput(almostEmptyOutput);
-    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
-  } else {
-    console.log('hide');
+  if (arr.length === 0) {
+    shoppingList.classList.add('hidden');
     shoppingList.classList.add('visuallyhidden');
-    shoppingList.addEventListener('transitionend', () => {
-      shoppingList.classList.add('hidden');
-    }, {
-      capture: false,
-      once: true,
-      passive: false
+  } else {
+    clearOutput(haveEnoughOutput);
+    clearOutput(needMoreOutput);
+    clearOutput(almostEmptyOutput);
+    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+    createOutputNeedMore(needMoreArr, needMoreOutput);
+    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+    caclulateTotalAllItems(calculatedPricePerItem);
+    shoppingList.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      shoppingList.classList.remove('visuallyhidden');
     });
   }
 };
@@ -215,11 +220,11 @@ toggleShoppingList(needMoreArr, needMoreContainer);
 toggleShoppingList(almostEmptyArr, almostEmptyContainer);
 
 if (selectType.value === 'have-enough') {
-  createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+  toggleShoppingList(haveEnoughArr, haveEnoughContainer);
 } else if (selectType.value === 'almost-empty') {
-  createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  toggleShoppingList(haveEnoughArr, haveEnoughContainer);
 } else if (selectType.value === 'need-more') {
-  createOutputNeedMore(needMoreArr, needMoreOutput);
+  toggleShoppingList(haveEnoughArr, haveEnoughContainer);
 }
 
 function calculatetotalPerItem() {
