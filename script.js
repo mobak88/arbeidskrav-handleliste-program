@@ -16,9 +16,12 @@ const errMsgProduct = document.querySelector('.error-msg-product');
 const errMsgPrice = document.querySelector('.error-msg-price');
 const errMsgQuantity = document.querySelector('.error-msg-quantity');
 
-const haveEnoughArr = [];
-const almostEmptyArr = [];
-const needMoreArr = [];
+const localHaveEnough = JSON.parse(localStorage.getItem('productHaveEnough'));
+console.log(localHaveEnough);
+
+const haveEnoughArr = localHaveEnough || [];
+const almostEmptyArr = JSON.parse(localStorage.getItem('productAlmostEmpty')) || [];
+const needMoreArr = JSON.parse(localStorage.getItem('productNeedMore')) || [];
 let calculatedPricePerItem = [];
 
 /* Cudos to Rune Lillesveen for providing a great solution for animations with display none: https://codepen.io/lilles/pen/NWwMPJz */
@@ -64,24 +67,6 @@ const toggleInputs = (element) => {
 selectType.addEventListener('change', () => {
   toggleInputs(needMoreInputsContainer);
 });
-
-// Prøv å la bredden vokse og krympe istedenfor istedet
-const toggleShoppingList = (arr, shoppingList) => {
-  if (arr.length > 0) {
-    shoppingList.classList.remove('hidden');
-    shoppingList.clientWidth;
-    shoppingList.classList.remove('visuallyhidden');
-  } else {
-    shoppingList.classList.add('visuallyhidden');
-    shoppingList.addEventListener('transitionend', () => {
-      shoppingList.classList.add('hidden');
-    }, {
-      capture: false,
-      once: true,
-      passive: false
-    });
-  }
-};
 
 const displayErrMsg = (errMsg) => {
   errMsg.classList.remove('hidden');
@@ -200,6 +185,35 @@ function deleteOutputNeedMore(index) {
   }
 }
 
+const toggleShoppingList = (arr, shoppingList) => {
+  if (arr.length > 0) {
+    console.log('show');
+    shoppingList.classList.remove('hidden');
+    shoppingList.clientWidth;
+    shoppingList.classList.remove('visuallyhidden');
+    clearOutput(haveEnoughOutput);
+    createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
+    clearOutput(needMoreOutput);
+    createOutputNeedMore(needMoreArr, needMoreOutput);
+    clearOutput(almostEmptyOutput);
+    createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
+  } else {
+    console.log('hide');
+    shoppingList.classList.add('visuallyhidden');
+    shoppingList.addEventListener('transitionend', () => {
+      shoppingList.classList.add('hidden');
+    }, {
+      capture: false,
+      once: true,
+      passive: false
+    });
+  }
+};
+
+toggleShoppingList(haveEnoughArr, haveEnoughContainer);
+toggleShoppingList(needMoreArr, needMoreContainer);
+toggleShoppingList(almostEmptyArr, almostEmptyContainer);
+
 if (selectType.value === 'have-enough') {
   createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
 } else if (selectType.value === 'almost-empty') {
@@ -229,8 +243,6 @@ function getUserinput() {
       hideErrMsg(errMsgProduct);
       haveEnoughArr.push(productValue);
       localStorage.setItem('productHaveEnough', JSON.stringify(haveEnoughArr));
-      const localHaveEnough = JSON.parse(localStorage.getItem('productHaveEnough'));
-      console.log(localHaveEnough);
       clearOutput(haveEnoughOutput);
       createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
       toggleShoppingList(haveEnoughArr, haveEnoughContainer);
@@ -245,8 +257,6 @@ function getUserinput() {
       hideErrMsg(errMsgProduct);
       almostEmptyArr.push(productValue);
       localStorage.setItem('productAlmostEmpty', JSON.stringify(almostEmptyArr));
-      const localEMpty = JSON.parse(localStorage.getItem('productAlmostEmpty'));
-      console.log(localEMpty);
       clearOutput(almostEmptyOutput);
       createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
       toggleShoppingList(almostEmptyArr, almostEmptyContainer);
@@ -284,8 +294,6 @@ function getUserinput() {
         quantity: quantityValue,
       });
       localStorage.setItem('productNeedMore', JSON.stringify(needMoreArr));
-      const localMore = JSON.parse(localStorage.getItem('productNeedMore'));
-      console.log(localMore);
       clearOutput(needMoreOutput);
       createOutputNeedMore(needMoreArr, needMoreOutput);
       toggleShoppingList(needMoreArr, needMoreContainer);

@@ -102,7 +102,6 @@ select {
   margin-bottom: 28px;
   border-bottom: 1px solid rgb(226, 226, 226);
   width: 100%;
-  animation: append-animate 0.6s linear;
 }
 
 .product-container {
