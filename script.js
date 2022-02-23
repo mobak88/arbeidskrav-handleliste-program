@@ -90,17 +90,13 @@ const uppdateShoppingListTotal = (price) => {
 };
 
 const localPrice = JSON.parse(localStorage.getItem('productNeedMore'));
-console.log(localPrice);
 
 if (localPrice !== null) {
   const newReducePrice = [];
   for (let i = 0; i < localPrice.length; i++) {
-    console.log(localPrice[i].price);
     newReducePrice.push(localPrice[i].price * localPrice[i].quantity);
   }
   calculatedPricePerItem = [...newReducePrice];
-  console.log(newReducePrice);
-  console.log(calculatedPricePerItem);
 }
 
 const caclulateTotalAllItems = (arr) => {
@@ -165,7 +161,6 @@ function deleteOutputAlmostEmpty(index) {
 }
 
 function createOutputNeedMore(arr, output) {
-  deleteBtn = document.querySelectorAll('.delete-btn');
   arr.forEach((element, index) => {
     output.innerHTML += `
       <div class="product-container-need-more">
@@ -315,12 +310,3 @@ function addProduct(e) {
   e.preventDefault();
   getUserinput();
 }
-
-// Valgte å bruke foreach loops fordi at man looper gjennom alle elementer
-// i dette prosjektet og har derfor kommentert ut for loop siden det var i kravet
-// for (let i = 0; i < arr.length; i++) {
-//       output.innerHTML += `
-//         <li>${haveEnoughArr[i]}</li>
-//         <button onclick='addOnclickToDeleteBtn(${i})'>Slett</button>
-//         `;
-//     }

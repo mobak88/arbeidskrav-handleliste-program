@@ -86,15 +86,6 @@ select {
   height: 100%;
 }
 
-@keyframes append-animate {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .product-container,
 .product-container-need-more {
   display: flex;
@@ -333,5 +324,13 @@ select {
 
   .product-list-need-more {
     width: 60px;
+  }
+
+  .form-container {
+    gap: 20px;
+  }
+
+  .user-list-container {
+    margin-top: 0;
   }
 }
