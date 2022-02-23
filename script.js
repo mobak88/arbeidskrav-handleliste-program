@@ -132,6 +132,7 @@ function deleteOutputHaveEnough(index) {
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
   } else if (userAnswer.toLowerCase().trim() === 'ja') {
     haveEnoughArr.splice(index, 1);
+    localStorage.setItem('productHaveEnough', JSON.stringify(haveEnoughArr));
     clearOutput(haveEnoughOutput);
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
     toggleShoppingList(haveEnoughArr, haveEnoughContainer);
@@ -158,6 +159,7 @@ function deleteOutputAlmostEmpty(index) {
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
   } else if (userAnswer.toLowerCase().trim() === 'ja') {
     almostEmptyArr.splice(index, 1);
+    localStorage.setItem('productAlmostEmpty', JSON.stringify(almostEmptyArr));
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
     toggleShoppingList(almostEmptyArr, almostEmptyContainer);
@@ -187,6 +189,7 @@ function deleteOutputNeedMore(index) {
     createOutputNeedMore(needMoreArr, needMoreOutput);
   } else if (userAnswer.toLowerCase().trim() === 'ja') {
     needMoreArr.splice(index, 1);
+    localStorage.setItem('productNeedMore', JSON.stringify(needMoreArr));
     clearOutput(needMoreOutput);
     createOutputNeedMore(needMoreArr, needMoreOutput);
     toggleShoppingList(needMoreArr, needMoreContainer);
@@ -225,6 +228,9 @@ function getUserinput() {
       product.classList.remove('error-border-input');
       hideErrMsg(errMsgProduct);
       haveEnoughArr.push(productValue);
+      localStorage.setItem('productHaveEnough', JSON.stringify(haveEnoughArr));
+      const localHaveEnough = JSON.parse(localStorage.getItem('productHaveEnough'));
+      console.log(localHaveEnough);
       clearOutput(haveEnoughOutput);
       createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
       toggleShoppingList(haveEnoughArr, haveEnoughContainer);
@@ -238,6 +244,9 @@ function getUserinput() {
       product.classList.remove('error-border-input');
       hideErrMsg(errMsgProduct);
       almostEmptyArr.push(productValue);
+      localStorage.setItem('productAlmostEmpty', JSON.stringify(almostEmptyArr));
+      const localEMpty = JSON.parse(localStorage.getItem('productAlmostEmpty'));
+      console.log(localEMpty);
       clearOutput(almostEmptyOutput);
       createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
       toggleShoppingList(almostEmptyArr, almostEmptyContainer);
@@ -274,6 +283,9 @@ function getUserinput() {
         price: priceValue,
         quantity: quantityValue,
       });
+      localStorage.setItem('productNeedMore', JSON.stringify(needMoreArr));
+      const localMore = JSON.parse(localStorage.getItem('productNeedMore'));
+      console.log(localMore);
       clearOutput(needMoreOutput);
       createOutputNeedMore(needMoreArr, needMoreOutput);
       toggleShoppingList(needMoreArr, needMoreContainer);
