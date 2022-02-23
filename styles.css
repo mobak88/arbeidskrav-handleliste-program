@@ -166,6 +166,10 @@ select {
   transition: all 0.5s linear;
 }
 
+.need-more-margin {
+  margin-bottom: 105px;
+}
+
 .hidden {
   display: none;
 }

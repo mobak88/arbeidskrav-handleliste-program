@@ -281,9 +281,11 @@ function getUserinput() {
 
     if (quantityValue === '' || isNaN(quantityValue)) {
       quantity.classList.add('error-border-input');
+      needMoreInputsContainer.classList.add('need-more-margin');
       displayErrMsg(errMsgQuantity);
     } else {
       quantity.classList.remove('error-border-input');
+      needMoreInputsContainer.classList.remove('need-more-margin');
       hideErrMsg(errMsgQuantity);
     }
 
