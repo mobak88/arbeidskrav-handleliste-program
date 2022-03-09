@@ -128,7 +128,7 @@ function deleteOutputHaveEnough(index) {
     clearOutput(haveEnoughOutput);
     createOutputHaveEnough(haveEnoughArr, haveEnoughOutput);
     toggleShoppingList(haveEnoughArr, haveEnoughContainer);
-  } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
+  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
 }
@@ -155,7 +155,7 @@ function deleteOutputAlmostEmpty(index) {
     clearOutput(almostEmptyOutput);
     createOutputAlmostEmpty(almostEmptyArr, almostEmptyOutput);
     toggleShoppingList(almostEmptyArr, almostEmptyContainer);
-  } else if (userAnswer.toLowerCase().trim() !== 'ja' || userAnswer.toLowerCase().trim() !== 'nei') {
+  } else if (userAnswer.toLowerCase() !== 'ja' || userAnswer.toLowerCase() !== 'nei') {
     alert('Du må svare ja eller nei');
   }
 }
